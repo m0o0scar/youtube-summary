@@ -22,7 +22,7 @@ export const YouTubeContent: FC<YouTubeContentProps> = ({ source, language }) =>
   );
 
   // video caption
-  const { caption, captionLanguage, captionTokens } = useYouTubeVideoCaption(
+  const { captionStatus, caption, captionLanguage, captionTokens } = useYouTubeVideoCaption(
     isYouTubeSource ? source.id : undefined,
     language,
   );
@@ -41,13 +41,20 @@ export const YouTubeContent: FC<YouTubeContentProps> = ({ source, language }) =>
 
       {/* caption */}
       <h2 className="!mt-4">Caption</h2>
-      <YouTubeVideoCaptionSummary
-        videoId={isYouTubeSource ? source.id : undefined}
-        title={title}
+      {captionStatus === 'loaded' && (
+        <YouTubeVideoCaptionSummary
+          videoId={isYouTubeSource ? source.id : undefined}
+          title={title}
+          caption={caption}
+          language={language}
+        />
+      )}
+      <YouTubeVideoCaption
+        captionStatus={captionStatus}
         caption={caption}
-        language={language}
+        language={captionLanguage}
+        tokens={captionTokens}
       />
-      <YouTubeVideoCaption caption={caption} language={captionLanguage} tokens={captionTokens} />
     </>
   );
 };

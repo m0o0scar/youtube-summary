@@ -98,7 +98,9 @@ export const useYouTubeVideoCaptionSummary = (
   }, [videoId, title, caption]);
 
   useEffect(() => {
-    createSummary(true);
+    if (reloadTrigger.value) {
+      createSummary(true);
+    }
   }, [reloadTrigger.value]);
 
   return {

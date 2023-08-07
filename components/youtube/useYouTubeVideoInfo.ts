@@ -29,7 +29,17 @@ export const useYouTubeVideoInfo = (videoId?: string) => {
         setThumbnail(thumbnailUrl);
 
         // duration
-        setDuration(dayjs.duration(response.contentDetails.duration).format('HH:mm:ss'));
+        switch (response.snippet.liveBroadcastContent) {
+          case 'upcoming': {
+            const startDate = dayjs(response.liveStreamingDetails.scheduledStartTime);
+            setDuration(`Will go live on ${startDate.format('YYYY MMM DD HH:mm')}`);
+            break;
+          }
+
+          default:
+            setDuration(dayjs.duration(response.contentDetails.duration).format('HH:mm:ss'));
+            break;
+        }
       }
     })();
   }, [videoId]);

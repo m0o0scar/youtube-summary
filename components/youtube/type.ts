@@ -55,6 +55,14 @@ export interface YouTubeVideoInfo {
     favoriteCount: string;
     commentCount: string;
   };
+  liveStreamingDetails: {
+    actualStartTime: string;
+    actualEndTime: string;
+    scheduledStartTime: string;
+    scheduledEndTime: string;
+    concurrentViewers: number;
+    activeLiveChatId: string;
+  };
 }
 
 export type YouTubeVideoInfoThumbnailKey = 'default' | 'medium' | 'high' | 'standard' | 'maxres';

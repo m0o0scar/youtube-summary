@@ -3,7 +3,7 @@ import { YouTubeListCaptionsResponse, YouTubeVideoInfoResponse } from './type';
 export const fetchYouTubeVideoInfo = async (videoId: string) => {
   const params = new URLSearchParams({
     id: videoId,
-    part: 'snippet,contentDetails,statistics',
+    part: 'snippet,contentDetails,statistics,liveStreamingDetails',
   });
   const url = `/api/proxy/youtube/v3/videos?${params.toString()}`;
 

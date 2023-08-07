@@ -2,13 +2,17 @@ import { FC } from 'react';
 
 import { formatTokens } from '@components/llm/utils';
 
+import { CaptionStatus } from './useYouTubeVideoCaption';
+
 export interface YouTubeVideoCaptionProps {
+  captionStatus?: CaptionStatus;
   caption?: string;
   language?: string;
   tokens?: number;
 }
 
 export const YouTubeVideoCaption: FC<YouTubeVideoCaptionProps> = ({
+  captionStatus,
   caption,
   language,
   tokens,
@@ -27,10 +31,11 @@ export const YouTubeVideoCaption: FC<YouTubeVideoCaptionProps> = ({
       </div>
 
       {/* caption content */}
-      {!caption && <span className="loading loading-spinner" />}
-      {caption && (
+      {captionStatus === 'pending' && <span className="loading loading-spinner" />}
+      {captionStatus !== 'pending' && (
         <div className="p-4 shadow-inner rounded-xl text-sm sm:text-base bg-slate-100 overflow-auto max-h-64">
-          {caption}
+          {captionStatus === 'loaded' && caption}
+          {captionStatus === 'noCaption' && 'No caption available'}
         </div>
       )}
     </div>
