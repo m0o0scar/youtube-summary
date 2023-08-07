@@ -84,6 +84,16 @@ export const authOptions: NextAuthOptions = {
   ],
 
   callbacks: {
+    async signIn({ user, account, profile, email, credentials }) {
+      const whitelistEmails = ['moscartong@gmail.com'];
+      const whitelistDomains = ['sea.com', 'seagroup.com'];
+
+      if (user.email) {
+        if (whitelistEmails.includes(user.email)) return true;
+        if (whitelistDomains.includes(user.email.split('@')[1])) return true;
+      }
+      return false;
+    },
     async jwt({ token, account }) {
       // Include granted scopes to be available in the client,
       // so that later in session callback, we can determine if user has granted us the required scopes
@@ -116,7 +126,7 @@ export const authOptions: NextAuthOptions = {
       // Make sure user has granted us all the required scopes, otherwise login should fail
       const grantedScopes = scope.split(' ');
       const hasRequiredScopes = scopes.every((requiredScope) =>
-        grantedScopes.includes(requiredScope)
+        grantedScopes.includes(requiredScope),
       );
       if (!hasRequiredScopes) {
         throw new Error('Access denied: required scope not granted');
