@@ -31,3 +31,8 @@ export function countTokens(messages: ChatCompletionRequestMessage[]) {
 export function countTokensOfText(text: string) {
   return encoder.encode(text).length;
 }
+
+export function formatTokenLength(n: number) {
+  if (n < 1024) return n.toString();
+  return `${Math.floor(n / 1024)}k`;
+}

@@ -10,7 +10,7 @@ export async function completion(
   const llmModels = llmModel instanceof Array ? llmModel : [llmModel];
 
   // count number of tokens in prompt
-  const numberOfTokensInPrompt = openai.countTokensOfText(prompt);
+  const numberOfTokensInPrompt = openai.countTokens([{ role: 'user', content: prompt }]);
 
   const { temperature, maxReplyTokens = DefaultMaxReplyTokens, onStream, signal } = options;
 
@@ -27,27 +27,35 @@ export async function completion(
     switch (model.provider) {
       case 'openai':
         console.log(`[Completion<${model.name}>] using OpenAI API`);
-        return openai.chatCompletion(
-          {
-            messages: [{ role: 'user', content: prompt }],
-            max_tokens: maxReplyTokens,
-            temperature,
-          },
-          onStream,
-          signal,
-        );
+        return {
+          model: model.name,
+          result: await openai.chatCompletion(
+            {
+              model: model.name,
+              messages: [{ role: 'user', content: prompt }],
+              max_tokens: maxReplyTokens,
+              temperature,
+            },
+            onStream,
+            signal,
+          ),
+        };
 
       case 'anthropic':
         console.log(`[Completion<${model.name}>] using Anthropic API`);
-        return anthropic.completion(
-          {
-            prompt,
-            max_tokens_to_sample: maxReplyTokens,
-            temperature,
-          },
-          onStream,
-          signal,
-        );
+        return {
+          model: model.name,
+          result: await anthropic.completion(
+            {
+              model: model.name,
+              prompt,
+              max_tokens_to_sample: maxReplyTokens,
+              temperature,
+            },
+            onStream,
+            signal,
+          ),
+        };
 
       default:
         console.log(`[Completion<${model.name}>] unknown provider "${model.provider}"`);

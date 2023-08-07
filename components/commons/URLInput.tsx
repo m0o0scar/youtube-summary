@@ -1,7 +1,7 @@
 import { useSearchParams } from 'next/navigation';
 import { FC, useEffect, useState } from 'react';
 
-import { getYoutubeVideoId } from '@components/youtube/utils';
+import { getYouTubeVideoId } from '@components/youtube/utils';
 import { SupportedURL } from '@type';
 
 export interface URLInputProps {
@@ -21,7 +21,7 @@ export const URLInput: FC<URLInputProps> = ({ disabled, onSupportedURLFound }) =
   const checkIfUrlIsSupportedAndValid = (url?: string) => {
     if (!url) return null;
 
-    const youtubeId = getYoutubeVideoId(url);
+    const youtubeId = getYouTubeVideoId(url);
     if (youtubeId) return { type: 'youtube', id: youtubeId, url };
 
     return null;
@@ -35,11 +35,18 @@ export const URLInput: FC<URLInputProps> = ({ disabled, onSupportedURLFound }) =
     }
   };
 
+  const onInputKeydown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    // if user press enter
+    if (e.key === 'Enter') {
+      onGoButtonClick();
+    }
+  };
+
   const onGoButtonClick = (newValue?: string) => {
     if (!value && !newValue) return;
 
     const url = (value || newValue)!;
-    const youtubeId = getYoutubeVideoId(url);
+    const youtubeId = getYouTubeVideoId(url);
     if (youtubeId) {
       onSupportedURLFound?.({ type: 'youtube', id: youtubeId, url });
       return;
@@ -67,6 +74,7 @@ export const URLInput: FC<URLInputProps> = ({ disabled, onSupportedURLFound }) =
           className="input input-bordered w-full"
           value={value}
           onChange={(e) => setValue(e.target.value)}
+          onKeyDown={onInputKeydown}
           onClick={onClickOnInput}
         />
       </div>

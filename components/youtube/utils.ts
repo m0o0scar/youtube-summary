@@ -1,4 +1,4 @@
-export const getYoutubeVideoId = (url = '') => {
+export const getYouTubeVideoId = (url = '') => {
   try {
     // parse the url string
     const { hostname, pathname, searchParams } = new URL(url);

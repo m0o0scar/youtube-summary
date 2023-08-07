@@ -1,4 +1,4 @@
-export interface YoutubeVideoInfoResponse {
+export interface YouTubeVideoInfoResponse {
   kind: string;
   etag: string;
   nextPageToken: string;
@@ -7,10 +7,10 @@ export interface YoutubeVideoInfoResponse {
     totalResults: number;
     resultsPerPage: number;
   };
-  items?: YoutubeVideoInfo[];
+  items?: YouTubeVideoInfo[];
 }
 
-export interface YoutubeVideoInfo {
+export interface YouTubeVideoInfo {
   kind: 'youtube#video';
   etag: string;
   id: string;
@@ -20,7 +20,7 @@ export interface YoutubeVideoInfo {
     title: string;
     description: string;
     thumbnails: {
-      [key in YoutubeVideoInfoThumbnailKey]?: {
+      [key in YouTubeVideoInfoThumbnailKey]?: {
         url: string;
         width: number;
         height: number;
@@ -57,16 +57,44 @@ export interface YoutubeVideoInfo {
   };
 }
 
-export type YoutubeVideoInfoThumbnailKey = 'default' | 'medium' | 'high' | 'standard' | 'maxres';
+export type YouTubeVideoInfoThumbnailKey = 'default' | 'medium' | 'high' | 'standard' | 'maxres';
 
-export interface YoutubeCommentThreadsRequestOptions {
-  maxResults?: number;
-  order?: YoutubeCommentThreadsOrder;
+export interface YouTubeListCaptionItemSnippet {
+  videoId: string;
+  lastUpdated: string;
+  trackKind: string;
+  language: string;
+  name: string;
+  audioTrackType: string;
+  isCC: boolean;
+  isLarge: boolean;
+  isEasyReader: boolean;
+  isDraft: boolean;
+  isAutoSynced: boolean;
+  status: string;
 }
 
-export type YoutubeCommentThreadsOrder = 'time' | 'relevance';
+export interface YouTubeListCaptionsItem {
+  kind: string;
+  etag: string;
+  id: string;
+  snippet: YouTubeListCaptionItemSnippet;
+}
 
-export interface YoutubeCommentThreadsResponse {
+export interface YouTubeListCaptionsResponse {
+  kind: string;
+  etag: string;
+  items: YouTubeListCaptionsItem[];
+}
+
+export interface YouTubeCommentThreadsRequestOptions {
+  maxResults?: number;
+  order?: YouTubeCommentThreadsOrder;
+}
+
+export type YouTubeCommentThreadsOrder = 'time' | 'relevance';
+
+export interface YouTubeCommentThreadsResponse {
   kind: string;
   etag: string;
   nextPageToken: string;
@@ -74,23 +102,23 @@ export interface YoutubeCommentThreadsResponse {
     resultsPerPage: number;
     totalResults: number;
   };
-  items?: YoutubeCommentThread[];
+  items?: YouTubeCommentThread[];
 }
 
-export interface YoutubeCommentThread {
+export interface YouTubeCommentThread {
   kind: string;
   etag: string;
   id: string;
   snippet: {
     videoId: string;
-    topLevelComment: YoutubeComment;
+    topLevelComment: YouTubeComment;
     canReply: boolean;
     totalReplyCount: number;
     isPublic: boolean;
   };
 }
 
-export interface YoutubeComment {
+export interface YouTubeComment {
   kind: string;
   etag: string;
   id: string;

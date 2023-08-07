@@ -14,13 +14,15 @@
     "@tailwindcss/typography": "^0.5.9",
     "classnames": "^2.3.2",
     "daisyui": "^3.2.1",
+    "dayjs": "^1.11.9",
     "lodash": "^4.17.21",
     "next": "^13.4.9",
     "next-auth": "^4.22.1",
     "openai": "^3.3.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "tiktoken": "^1.0.10"
+    "tiktoken": "^1.0.10",
+    "youtube-caption-extractor": "^1.4.3"
   },
   "devDependencies": {
     "@svgr/webpack": "^8.0.1",
