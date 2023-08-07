@@ -8,6 +8,7 @@ import { useYouTubeVideoInfo } from './useYouTubeVideoInfo';
 import { YouTubeVideoCaption } from './YouTubeVideoCaption';
 import { YouTubeVideoCaptionSummary } from './YouTubeVideoCaptionSummary';
 import { YouTubeVideoComments } from './YouTubeVideoComments';
+import { YouTubeVideoCommentsSummary } from './YouTubeVideoCommentsSummary';
 import { YouTubeVideoInfoCard } from './YouTubeVideoInfo';
 
 export interface YouTubeContentProps {
@@ -17,22 +18,19 @@ export interface YouTubeContentProps {
 
 export const YouTubeContent: FC<YouTubeContentProps> = ({ source, language }) => {
   const isYouTubeSource = source?.type === 'youtube';
+  const videoId = isYouTubeSource ? source.id : undefined;
 
   // video info
-  const { title, thumbnail, duration } = useYouTubeVideoInfo(
-    isYouTubeSource ? source.id : undefined,
-  );
+  const { title, thumbnail, duration } = useYouTubeVideoInfo(videoId);
 
   // video caption
   const { captionStatus, caption, captionLanguage, captionTokens } = useYouTubeVideoCaption(
-    isYouTubeSource ? source.id : undefined,
+    videoId,
     language,
   );
 
   // video comments
-  const { commentsStatus, comments, commentsTokens } = useYouTubeVideoComments(
-    isYouTubeSource ? source.id : undefined,
-  );
+  const { commentsStatus, comments, commentsTokens } = useYouTubeVideoComments(videoId);
 
   if (!source || source.type !== 'youtube') return null;
 
@@ -50,7 +48,7 @@ export const YouTubeContent: FC<YouTubeContentProps> = ({ source, language }) =>
       <h2 className="!mt-4">Caption</h2>
       {captionStatus === 'loaded' && (
         <YouTubeVideoCaptionSummary
-          videoId={isYouTubeSource ? source.id : undefined}
+          videoId={videoId}
           title={title}
           caption={caption}
           language={language}
@@ -65,6 +63,14 @@ export const YouTubeContent: FC<YouTubeContentProps> = ({ source, language }) =>
 
       {/* comments */}
       <h2 className="!mt-4">Comments</h2>
+      {commentsStatus === 'loaded' && (
+        <YouTubeVideoCommentsSummary
+          videoId={videoId}
+          title={title}
+          comments={comments}
+          language={language}
+        />
+      )}
       <YouTubeVideoComments
         commentsStatus={commentsStatus}
         comments={comments}
