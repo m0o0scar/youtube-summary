@@ -32,7 +32,8 @@ export const YouTubeVideoInfoCard: FC<YouTubeVideoInfoProps> = ({
         {!title && <span className="loading loading-spinner" />}
         {title && (
           <a href={url} target="_blank">
-            <h3 className="m-0 sm:m-auto">{title}</h3>
+            <h3 className="hidden sm:block">{title}</h3>
+            <div className="sm:hidden">{title}</div>
           </a>
         )}
 
