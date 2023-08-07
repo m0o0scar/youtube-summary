@@ -7,10 +7,10 @@ import { OpenAI_GPT3_5, OpenAI_GPT3_5_16k } from '@components/llm/providers/open
 
 function getPrompt(title: string, caption: string, language: string) {
   return {
-    en: `I will provide you a title and caption of a video.
-If the title is a question, your task is to summarize the caption content into a concise answer to the title question.
-If the title is not a question, your task is to extract the most relevant key points related to the title from the caption.
-Your reply should be concise, easy to understand, and without any redundant content. Don't wrap your reply in XML tag.
+    en: `I will provide you the title and caption of a video.
+Your task is to summarize the caption into key points that are most relevant to the title, and reply only the key points to me in English.
+You should reply in bullet point format. Your reply should be concise, easy to understand, and without any redundant content.
+Don't wrap your reply in XML tag.
 
 This is the video title, in <title></title> XML tag:
 <title>${title}</title>
@@ -22,10 +22,9 @@ ${caption}
 
 Please reply in English.`,
 
-    'zh-CN': `我会给你提供一个视频的标题和字幕内容。
-如果视频的标题是一个问题，你的任务是将字幕内容总结成一段回答标题问题的精简文字；
-如果视频的标题不是一个问题，你的任务是从字幕中提取与标题相关的关键点。
-你的回复应当简洁、易懂、没有多余的内容、无需包括视频标题、也无需额外说明。切勿将回复内容包含在XML标签里。
+    'zh-CN': `我会给你提供一个视频的标题和字幕内容。你的任务是从字幕中提取与标题相关的主要关键点，并以中文回复。
+你的回复应当简洁、易懂、没有多余的内容。你的回复只需要包括主要关键点，无需包括视频标题、也无需额外说明。
+切勿将回复内容包含在XML标签里。
 
 以下是视频标题，在 <title></title> XML 标签中:
 <title>${title}</title>
