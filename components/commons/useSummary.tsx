@@ -18,6 +18,7 @@ export const useSummary = (
 ) => {
   const [model, setModel] = useState('');
   const [summary, setSummary] = useState('');
+  const [duration, setDuration] = useState(0);
   const [error, setError] = useState<Error | null>(null);
   const [done, setDone] = useState(false);
 
@@ -26,6 +27,7 @@ export const useSummary = (
   const createSummary = async (ignoreCache?: boolean) => {
     setModel('');
     setSummary('');
+    setDuration(0);
     setError(null);
     setDone(false);
 
@@ -48,6 +50,7 @@ export const useSummary = (
       // no cache available, create new summary
       const prompt = getPrompt(title, content, languageToUse);
       try {
+        const t0 = new Date().getTime();
         const { model, result } = await completion(
           [OpenAI_GPT3_5, OpenAI_GPT3_5_16k, Anthropic_Claude2],
           prompt,
@@ -59,6 +62,10 @@ export const useSummary = (
             },
           },
         );
+
+        const t1 = new Date().getTime();
+        setDuration(t1 - t0);
+
         localStorage.setItem(storageKey, JSON.stringify({ summary: result, model }));
       } catch (error) {
         setError(error as Error);
@@ -81,6 +88,7 @@ export const useSummary = (
   return {
     model,
     summary,
+    duration,
     done,
     error,
     regen: reGenTrigger.trigger,

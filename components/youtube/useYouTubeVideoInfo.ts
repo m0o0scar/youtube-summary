@@ -1,10 +1,10 @@
 import dayjs from 'dayjs';
-import duration from 'dayjs/plugin/duration';
+import dayjsDuration from 'dayjs/plugin/duration';
 import { useEffect, useState } from 'react';
 
 import { fetchYouTubeVideoInfo } from './api';
 
-dayjs.extend(duration);
+dayjs.extend(dayjsDuration);
 
 export const useYouTubeVideoInfo = (videoId?: string) => {
   const [title, setTitle] = useState('');
