@@ -1,4 +1,9 @@
-import { YouTubeListCaptionsResponse, YouTubeVideoInfoResponse } from './type';
+import sanitizeHtml from 'sanitize-html';
+
+import {
+    YouTubeCommentThread, YouTubeCommentThreadsRequestOptions, YouTubeCommentThreadsResponse,
+    YouTubeListCaptionsResponse, YouTubeVideoInfoResponse
+} from './type';
 
 export const fetchYouTubeVideoInfo = async (videoId: string) => {
   const params = new URLSearchParams({
@@ -50,4 +55,43 @@ export const fetchYouTubeVideoCaption = async (videoId: string, lang: string) =>
   const response = await fetch(url);
   const caption = await response.text();
   return caption;
+};
+
+export const fetchYouTubeVideoComments = async (
+  videoId: string,
+  options?: YouTubeCommentThreadsRequestOptions,
+) => {
+  const { maxResults = 20, order = 'relevance' } = options || {};
+
+  const comments: YouTubeCommentThread[] = [];
+  let pageToken = '';
+
+  while (comments.length < maxResults) {
+    const params = new URLSearchParams({
+      videoId,
+      part: 'snippet',
+      maxResults: Math.min(maxResults, 100).toString(),
+      order,
+      pageToken,
+    });
+    const url = `/api/proxy/youtube/v3/commentThreads?${params.toString()}`;
+    const response = await fetch(url);
+    const json = (await response.json()) as YouTubeCommentThreadsResponse;
+
+    if (json.items?.length) {
+      // remove html tags from comment text
+      for (const item of json.items || []) {
+        const { textDisplay } = item.snippet.topLevelComment.snippet;
+        const text = sanitizeHtml(textDisplay, { allowedTags: ['br'] }).replaceAll('<br />', '\n');
+        item.snippet.topLevelComment.snippet.textDisplay = text;
+      }
+      comments.push(...json.items!);
+    }
+
+    if (!json.items || !json.nextPageToken) break;
+
+    pageToken = json.nextPageToken;
+  }
+
+  return comments;
 };

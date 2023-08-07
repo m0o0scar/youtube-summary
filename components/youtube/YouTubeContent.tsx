@@ -3,9 +3,11 @@ import { FC } from 'react';
 import { SupportedURL } from '@type';
 
 import { useYouTubeVideoCaption } from './useYouTubeVideoCaption';
+import { useYouTubeVideoComments } from './useYouTubeVideoComments';
 import { useYouTubeVideoInfo } from './useYouTubeVideoInfo';
 import { YouTubeVideoCaption } from './YouTubeVideoCaption';
 import { YouTubeVideoCaptionSummary } from './YouTubeVideoCaptionSummary';
+import { YouTubeVideoComments } from './YouTubeVideoComments';
 import { YouTubeVideoInfoCard } from './YouTubeVideoInfo';
 
 export interface YouTubeContentProps {
@@ -25,6 +27,11 @@ export const YouTubeContent: FC<YouTubeContentProps> = ({ source, language }) =>
   const { captionStatus, caption, captionLanguage, captionTokens } = useYouTubeVideoCaption(
     isYouTubeSource ? source.id : undefined,
     language,
+  );
+
+  // video comments
+  const { commentsStatus, comments, commentsTokens } = useYouTubeVideoComments(
+    isYouTubeSource ? source.id : undefined,
   );
 
   if (!source || source.type !== 'youtube') return null;
@@ -54,6 +61,14 @@ export const YouTubeContent: FC<YouTubeContentProps> = ({ source, language }) =>
         caption={caption}
         language={captionLanguage}
         tokens={captionTokens}
+      />
+
+      {/* comments */}
+      <h2 className="!mt-4">Comments</h2>
+      <YouTubeVideoComments
+        commentsStatus={commentsStatus}
+        comments={comments}
+        tokens={commentsTokens}
       />
     </>
   );

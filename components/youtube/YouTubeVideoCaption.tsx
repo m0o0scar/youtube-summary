@@ -34,8 +34,8 @@ export const YouTubeVideoCaption: FC<YouTubeVideoCaptionProps> = ({
       {captionStatus === 'pending' && <span className="loading loading-spinner" />}
       {captionStatus !== 'pending' && (
         <div className="p-4 shadow-inner rounded-xl text-sm sm:text-base bg-slate-100 overflow-auto max-h-64">
-          {captionStatus === 'loaded' && caption}
           {captionStatus === 'noCaption' && 'No caption available'}
+          {captionStatus === 'loaded' && caption}
         </div>
       )}
     </div>
