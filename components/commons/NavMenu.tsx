@@ -20,7 +20,7 @@ export const NavMenu = () => {
             className="mt-1 z-[1] p-2 shadow menu dropdown-content bg-base-100 rounded-xl"
           >
             <li>
-              <a>Settings</a>
+              <label htmlFor="settings-drawer">Settings</label>
             </li>
             <li>
               <a onClick={() => signOut()}>Logout</a>

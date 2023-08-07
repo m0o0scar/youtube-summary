@@ -22,7 +22,7 @@ export const YouTubeVideoInfoCard: FC<YouTubeVideoInfoProps> = ({
         <img
           src={thumbnail}
           alt="thumbnail"
-          className="m-0 w-full sm:w-60 rounded-lg aspect-video"
+          className="m-0 w-full sm:w-60 rounded-lg aspect-video object-cover"
         />
       )}
 

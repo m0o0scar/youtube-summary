@@ -45,7 +45,7 @@ export const YouTubeContent: FC<YouTubeContentProps> = ({ source, language }) =>
         videoId={isYouTubeSource ? source.id : undefined}
         title={title}
         caption={caption}
-        language={captionLanguage}
+        language={language}
       />
       <YouTubeVideoCaption caption={caption} language={captionLanguage} tokens={captionTokens} />
     </>

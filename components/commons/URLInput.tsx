@@ -80,7 +80,7 @@ export const URLInput: FC<URLInputProps> = ({ disabled, onSupportedURLFound }) =
       </div>
 
       {/* submit button */}
-      <button className="btn" disabled={disabled || !value} onClick={onGoButtonClick}>
+      <button className="btn" disabled={disabled || !value} onClick={() => onGoButtonClick()}>
         Go
       </button>
     </div>
