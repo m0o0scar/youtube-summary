@@ -48,6 +48,7 @@ export const useYouTubeVideoCaptionSummary = (
   const [model, setModel] = useState('');
   const [summary, setSummary] = useState('');
   const [error, setError] = useState<Error | null>(null);
+  const [done, setDone] = useState(false);
 
   const reloadTrigger = useTrigger();
 
@@ -55,6 +56,7 @@ export const useYouTubeVideoCaptionSummary = (
     setModel('');
     setSummary('');
     setError(null);
+    setDone(false);
 
     if (videoId && title && caption) {
       const languageToUse = language?.startsWith('zh') ? 'zh-CN' : 'en';
@@ -67,6 +69,7 @@ export const useYouTubeVideoCaptionSummary = (
           const cached = JSON.parse(cachedValue);
           setSummary(cached.summary);
           setModel(cached.model);
+          setDone(true);
           return;
         }
       }
@@ -90,6 +93,8 @@ export const useYouTubeVideoCaptionSummary = (
       } catch (error) {
         setError(error as Error);
       }
+
+      setDone(true);
     }
   };
 
@@ -106,6 +111,7 @@ export const useYouTubeVideoCaptionSummary = (
   return {
     model,
     summary,
+    done,
     error,
     reload: reloadTrigger.trigger,
   };

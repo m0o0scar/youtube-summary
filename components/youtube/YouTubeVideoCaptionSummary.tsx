@@ -17,7 +17,7 @@ export const YouTubeVideoCaptionSummary: FC<YouTubeVideoCaptionProps> = ({
   caption,
   language,
 }) => {
-  const { model, summary, error, reload } = useYouTubeVideoCaptionSummary(
+  const { model, summary, error, done, reload } = useYouTubeVideoCaptionSummary(
     videoId,
     title,
     caption,
@@ -31,9 +31,11 @@ export const YouTubeVideoCaptionSummary: FC<YouTubeVideoCaptionProps> = ({
         {model && <span className="text-xs text-slate-400">/ {model}</span>}
 
         <div className="flex-1" />
-        <button className="btn btn-circle btn-xs" onClick={reload}>
-          <ArrowPathIcon className="w-1/2 h-1/2" />
-        </button>
+        {done && (
+          <button className="btn btn-circle btn-xs" onClick={reload}>
+            <ArrowPathIcon className="w-1/2 h-1/2" />
+          </button>
+        )}
       </div>
 
       {!error && (
