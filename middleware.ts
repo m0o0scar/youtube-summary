@@ -3,6 +3,7 @@ import { NextFetchEvent, NextMiddleware, NextResponse } from 'next/server';
 
 import * as anthropicMiddleware from '@components/llm/providers/anthropic/middleware';
 import * as openAIMiddleware from '@components/llm/providers/openai/middleware';
+import * as youtubeMiddleware from '@components/youtube/middleware';
 
 export const config = {
   // Due to this issue (https://github.com/vercel/next.js/issues/38461#issuecomment-1183265400),
@@ -14,6 +15,7 @@ export const config = {
 const proxyMiddlewares: NextMiddleware[] = [
   openAIMiddleware.middleware,
   anthropicMiddleware.middleware,
+  youtubeMiddleware.middleware,
 ];
 
 async function middleware(request: NextRequestWithAuth, event: NextFetchEvent) {
