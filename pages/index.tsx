@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-html-link-for-pages */
 import { useSession } from 'next-auth/react';
 import { useState } from 'react';
 
@@ -28,8 +29,10 @@ export default function Page() {
           <article className="prose max-w-full w-screen flex justify-center p-4">
             <div className="flex flex-col gap-6 w-full max-w-2xl mb-4">
               {/* title */}
-              <h1 className="hidden sm:block">YouTube Summary</h1>
-              <h1 className="block sm:hidden">YT Summary</h1>
+              <a href="/" className="no-underline">
+                <h1 className="hidden sm:block">YouTube Summary</h1>
+                <h1 className="block sm:hidden">YT Summary</h1>
+              </a>
 
               {/* show login button if not authenticated */}
               {status === 'loading' && <span className="loading loading-spinner" />}
