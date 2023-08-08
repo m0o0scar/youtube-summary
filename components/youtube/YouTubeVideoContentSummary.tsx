@@ -7,7 +7,9 @@ import { ArrowPathIcon } from '@heroicons/react/24/solid';
 
 dayjs.extend(dayjsDuration);
 
-export interface YouTubeVideoContentSummaryProps extends ReturnType<typeof useSummary> {}
+export interface YouTubeVideoContentSummaryProps extends ReturnType<typeof useSummary> {
+  extraActions?: React.ReactNode;
+}
 
 export const YouTubeVideoContentSummary: FC<YouTubeVideoContentSummaryProps> = ({
   model,
@@ -16,6 +18,7 @@ export const YouTubeVideoContentSummary: FC<YouTubeVideoContentSummaryProps> = (
   error,
   done,
   regen,
+  extraActions,
 }) => {
   const subtitle: string[] = [];
   if (model) subtitle.push(`by ${model}`);
@@ -36,9 +39,12 @@ export const YouTubeVideoContentSummary: FC<YouTubeVideoContentSummaryProps> = (
         {/* re-gen button */}
         <div className="flex-1" />
         {done && (
-          <button className="btn btn-circle btn-xs" onClick={regen}>
-            <ArrowPathIcon className="w-1/2 h-1/2" />
-          </button>
+          <div className="flex gap-2">
+            <button className="btn btn-circle btn-xs" onClick={regen}>
+              <ArrowPathIcon className="w-1/2 h-1/2" />
+            </button>
+            {extraActions}
+          </div>
         )}
       </div>
 
