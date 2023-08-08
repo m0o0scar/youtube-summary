@@ -66,7 +66,10 @@ export const useSummary = (
         const t1 = new Date().getTime();
         setDuration(t1 - t0);
 
-        localStorage.setItem(storageKey, JSON.stringify({ summary: result, model }));
+        localStorage.setItem(
+          storageKey,
+          JSON.stringify({ summary: result.replace(/\n{2,}/g, '\n'), model }),
+        );
       } catch (error) {
         setError(error as Error);
       }
