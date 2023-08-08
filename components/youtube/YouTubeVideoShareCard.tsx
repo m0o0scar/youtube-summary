@@ -6,6 +6,7 @@ export interface YouTubeVideoShareCardProps {
   thumbnail?: string;
   title?: string;
   content?: string;
+  model?: string;
   duration?: string;
 }
 
@@ -14,6 +15,7 @@ export const YouTubeVideoShareCard: FC<YouTubeVideoShareCardProps> = ({
   thumbnail,
   title,
   content,
+  model,
   duration,
 }) => {
   return (
@@ -39,9 +41,10 @@ export const YouTubeVideoShareCard: FC<YouTubeVideoShareCardProps> = ({
         {(title || content) && <hr className="dark:border-slate-700" />}
 
         {/* content */}
-        {content && (
-          <p className="whitespace-pre-wrap text-sm p-3 mb-4 overflow-y-auto">{content}</p>
-        )}
+        {content && <p className="whitespace-pre-wrap text-sm p-3 overflow-y-auto">{content}</p>}
+
+        {/* model */}
+        {model && <p className="text-xs text-slate-400 px-3 mb-4">By {model}</p>}
       </div>
     </div>
   );

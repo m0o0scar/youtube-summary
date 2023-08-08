@@ -8,6 +8,7 @@ interface SharePageProps {
   thumbnail?: string;
   title?: string;
   content?: string;
+  model?: string;
   duration?: string;
 }
 
@@ -16,17 +17,24 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const path = context.req.url;
   const { searchParams } = new URL(`https://${host}${path}`);
 
-  const url = decodeURIComponent((searchParams.get('u') as string) || '');
-  const thumbnail = decodeURIComponent((searchParams.get('p') as string) || '');
-  const title = decodeURIComponent((searchParams.get('t') as string) || '');
-  const content = decodeURIComponent((searchParams.get('c') as string) || '');
-  const duration = decodeURIComponent((searchParams.get('d') as string) || '');
-  const props: SharePageProps = { url, thumbnail, title, content, duration };
+  const props: SharePageProps = {};
+  const items: [string, string][] = [
+    ['url', 'u'],
+    ['thumbnail', 'p'],
+    ['title', 't'],
+    ['content', 'c'],
+    ['model', 'm'],
+    ['duration', 'd'],
+  ];
+  for (const [name, key] of items) {
+    const param = searchParams.get(key) as string;
+    if (param) Object.assign(props, { [name]: decodeURIComponent(param) });
+  }
 
   return { props };
 };
 
-export default function Page({ url, thumbnail, title, content, duration }: SharePageProps) {
+export default function Page({ url, thumbnail, title, content, model, duration }: SharePageProps) {
   return (
     <>
       <Header
@@ -49,7 +57,7 @@ export default function Page({ url, thumbnail, title, content, duration }: Share
       />
 
       <div className="absolute w-screen h-screen flex items-center justify-center">
-        <YouTubeVideoShareCard {...{ url, thumbnail, title, content, duration }} />
+        <YouTubeVideoShareCard {...{ url, thumbnail, title, content, model, duration }} />
       </div>
     </>
   );

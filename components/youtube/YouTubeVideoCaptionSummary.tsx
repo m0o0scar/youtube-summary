@@ -11,6 +11,7 @@ export interface YouTubeVideoCaptionSummaryProps {
   caption?: string;
   language?: string;
   shareParams?: URLSearchParams;
+  onModelChange?: (value: string) => void;
   onSummaryChange?: (value: string) => void;
 }
 
@@ -20,14 +21,19 @@ export const YouTubeVideoCaptionSummary: FC<YouTubeVideoCaptionSummaryProps> = (
   caption,
   language,
   shareParams,
+  onModelChange,
   onSummaryChange,
 }) => {
-  const { summary, ...others } = useYouTubeVideoCaptionSummary(videoId, title, caption, language);
+  const { summary, model, ...others } = useYouTubeVideoCaptionSummary(
+    videoId,
+    title,
+    caption,
+    language,
+  );
   const [shareUrl, setShareUrl] = useState<string>('');
 
-  useEffect(() => {
-    onSummaryChange?.(summary);
-  }, [summary]);
+  useEffect(() => onSummaryChange?.(summary), [summary]);
+  useEffect(() => onModelChange?.(model), [model]);
 
   useEffect(() => {
     const params = shareParams ? `?${shareParams.toString()}` : '';
@@ -37,6 +43,7 @@ export const YouTubeVideoCaptionSummary: FC<YouTubeVideoCaptionSummaryProps> = (
   return (
     <YouTubeVideoContentSummary
       summary={summary}
+      model={model}
       {...others}
       extraActions={
         <a className="btn btn-circle btn-xs" href={shareUrl} target="_blank">

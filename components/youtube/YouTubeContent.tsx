@@ -29,6 +29,7 @@ export const YouTubeContent: FC<YouTubeContentProps> = ({ source, language }) =>
     language,
   );
   const [captionSummary, setCaptionSummary] = useState('');
+  const [captionModel, setCaptionModel] = useState('');
 
   // video comments
   const { commentsStatus, comments, commentsTokens } = useYouTubeVideoComments(videoId);
@@ -36,14 +37,21 @@ export const YouTubeContent: FC<YouTubeContentProps> = ({ source, language }) =>
   const [shareParams, setShareParams] = useState<URLSearchParams | undefined>(undefined);
 
   useEffect(() => {
+    const items: [string, string?][] = [
+      ['u', source?.url],
+      ['p', thumbnail],
+      ['t', title],
+      ['c', captionSummary],
+      ['m', captionModel],
+      ['d', duration],
+    ];
+
     const params = new URLSearchParams();
-    source?.url && params.set('u', encodeURIComponent(source.url));
-    thumbnail && params.set('p', encodeURIComponent(thumbnail));
-    title && params.set('t', encodeURIComponent(title));
-    captionSummary && params.set('c', encodeURIComponent(captionSummary));
-    duration && params.set('d', encodeURIComponent(duration));
+    for (const [key, value] of items) {
+      if (value) params.set(key, encodeURIComponent(value));
+    }
     setShareParams(params);
-  }, [source, thumbnail, title, captionSummary, duration]);
+  }, [source, thumbnail, title, captionSummary, captionModel, duration]);
 
   if (!source || source.type !== 'youtube') return null;
 
@@ -67,6 +75,7 @@ export const YouTubeContent: FC<YouTubeContentProps> = ({ source, language }) =>
           language={language}
           shareParams={shareParams}
           onSummaryChange={setCaptionSummary}
+          onModelChange={setCaptionModel}
         />
       )}
       <YouTubeVideoCaption
