@@ -16,11 +16,11 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const path = context.req.url;
   const { searchParams } = new URL(`https://${host}${path}`);
 
-  const url = searchParams.get('u') as string;
-  const thumbnail = searchParams.get('p') as string;
-  const title = searchParams.get('t') as string;
-  const content = searchParams.get('c') as string;
-  const duration = searchParams.get('d') as string;
+  const url = decodeURIComponent((searchParams.get('u') as string) || '');
+  const thumbnail = decodeURIComponent((searchParams.get('p') as string) || '');
+  const title = decodeURIComponent((searchParams.get('t') as string) || '');
+  const content = decodeURIComponent((searchParams.get('c') as string) || '');
+  const duration = decodeURIComponent((searchParams.get('d') as string) || '');
   const props: SharePageProps = { url, thumbnail, title, content, duration };
 
   return { props };

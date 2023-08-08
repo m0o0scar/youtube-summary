@@ -37,11 +37,11 @@ export const YouTubeContent: FC<YouTubeContentProps> = ({ source, language }) =>
 
   useEffect(() => {
     const params = new URLSearchParams();
-    source?.url && params.set('u', source.url);
-    thumbnail && params.set('p', thumbnail);
-    title && params.set('t', title);
-    captionSummary && params.set('c', captionSummary);
-    duration && params.set('d', duration);
+    source?.url && params.set('u', encodeURIComponent(source.url));
+    thumbnail && params.set('p', encodeURIComponent(thumbnail));
+    title && params.set('t', encodeURIComponent(title));
+    captionSummary && params.set('c', encodeURIComponent(captionSummary));
+    duration && params.set('d', encodeURIComponent(duration));
     setShareParams(params);
   }, [source, thumbnail, title, captionSummary, duration]);
 
