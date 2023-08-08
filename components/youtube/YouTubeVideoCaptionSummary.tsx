@@ -32,6 +32,17 @@ export const YouTubeVideoCaptionSummary: FC<YouTubeVideoCaptionSummaryProps> = (
   );
   const [shareUrl, setShareUrl] = useState<string>('');
 
+  const onShare = async () => {
+    if (navigator.share!) {
+      if (title) {
+        await navigator.clipboard.writeText(title);
+      }
+      navigator.share({ title, url: shareUrl });
+    } else {
+      window.open(shareUrl, '_blank');
+    }
+  };
+
   useEffect(() => onSummaryChange?.(summary), [summary]);
   useEffect(() => onModelChange?.(model), [model]);
 
@@ -46,9 +57,9 @@ export const YouTubeVideoCaptionSummary: FC<YouTubeVideoCaptionSummaryProps> = (
       model={model}
       {...others}
       extraActions={
-        <a className="btn btn-circle btn-xs" href={shareUrl} target="_blank">
+        <button className="btn btn-circle btn-xs" onClick={onShare}>
           <ShareIcon className="w-1/2 h-1/2" />
-        </a>
+        </button>
       }
     />
   );
