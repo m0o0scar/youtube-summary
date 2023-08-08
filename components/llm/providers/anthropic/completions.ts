@@ -41,7 +41,8 @@ export async function completion(
 
     let acc = '';
     for await (const { completion } of stream) {
-      acc += completion;
+      if (acc === '') acc += completion.replace(/^\s+/, '');
+      else acc += completion;
       onStream({ acc, token: completion, done: false }, model);
     }
     onStream({ acc, token: '', done: true }, model);
