@@ -3,11 +3,10 @@ import { useEffect, useState } from 'react';
 import { countTokensOfText } from '@components/llm/providers/openai';
 
 import { fetchYouTubeVideoCaption, fetchYouTubeVideoCaptionLanguages } from './api';
-
-export type CaptionStatus = 'pending' | 'noCaption' | 'loaded';
+import { ContentStatus } from './type';
 
 export const useYouTubeVideoCaption = (videoId?: string, preferredLanguage: string = 'en') => {
-  const [status, setStatus] = useState<CaptionStatus>('pending');
+  const [status, setStatus] = useState<ContentStatus>('pending');
   const [caption, setCaption] = useState('');
   const [captionLanguage, setCaptionLanguage] = useState('');
   const [captionTokens, setCaptionTokens] = useState(0);
@@ -33,7 +32,7 @@ export const useYouTubeVideoCaption = (videoId?: string, preferredLanguage: stri
           setCaptionTokens(countTokensOfText(text));
           setStatus('loaded');
         } else {
-          setStatus('noCaption');
+          setStatus('empty');
         }
       }
     })();

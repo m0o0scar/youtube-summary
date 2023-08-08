@@ -3,11 +3,10 @@ import { useEffect, useState } from 'react';
 import { countTokensOfText } from '@components/llm/providers/openai';
 
 import { fetchYouTubeVideoComments } from './api';
-
-export type CommentsStatus = 'pending' | 'noComments' | 'loaded';
+import { ContentStatus } from './type';
 
 export const useYouTubeVideoComments = (videoId?: string) => {
-  const [status, setStatus] = useState<CommentsStatus>('pending');
+  const [status, setStatus] = useState<ContentStatus>('pending');
   const [comments, setComments] = useState<string[]>([]);
   const [commentsTokens, setCommentsTokens] = useState(0);
 
@@ -27,7 +26,7 @@ export const useYouTubeVideoComments = (videoId?: string) => {
           setCommentsTokens(countTokensOfText(commentTexts.join('\n')));
           setStatus('loaded');
         } else {
-          setStatus('noComments');
+          setStatus('empty');
         }
       }
     })();

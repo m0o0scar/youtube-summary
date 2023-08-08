@@ -55,7 +55,7 @@ export const YouTubeContent: FC<YouTubeContentProps> = ({ source, language }) =>
         />
       )}
       <YouTubeVideoCaption
-        captionStatus={captionStatus}
+        status={captionStatus}
         caption={caption}
         language={captionLanguage}
         tokens={captionTokens}
@@ -71,11 +71,7 @@ export const YouTubeContent: FC<YouTubeContentProps> = ({ source, language }) =>
           language={language}
         />
       )}
-      <YouTubeVideoComments
-        commentsStatus={commentsStatus}
-        comments={comments}
-        tokens={commentsTokens}
-      />
+      <YouTubeVideoComments status={commentsStatus} comments={comments} tokens={commentsTokens} />
     </>
   );
 };

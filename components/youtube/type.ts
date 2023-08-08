@@ -147,3 +147,5 @@ export interface YouTubeComment {
     updatedAt: string;
   };
 }
+
+export type ContentStatus = 'pending' | 'empty' | 'loaded';

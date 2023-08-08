@@ -2,17 +2,18 @@ import { FC } from 'react';
 
 import { formatTokens } from '@components/llm/utils';
 
-import { CaptionStatus } from './useYouTubeVideoCaption';
+import { ContentStatus } from './type';
+import { YouTubeVideoContent } from './YouTubeVideoContent';
 
 export interface YouTubeVideoCaptionProps {
-  captionStatus?: CaptionStatus;
+  status?: ContentStatus;
   caption?: string;
   language?: string;
   tokens?: number;
 }
 
 export const YouTubeVideoCaption: FC<YouTubeVideoCaptionProps> = ({
-  captionStatus,
+  status,
   caption,
   language,
   tokens,
@@ -22,22 +23,11 @@ export const YouTubeVideoCaption: FC<YouTubeVideoCaptionProps> = ({
   if (tokens) subtitle.push(`${formatTokens(tokens)} tokens`);
 
   return (
-    <div className="flex flex-col gap-2">
-      <div className="flex gap-2 items-center">
-        <h3>Full Caption</h3>
-        {subtitle.length > 0 && (
-          <span className="text-xs text-slate-400">/ {subtitle.join(', ')}</span>
-        )}
-      </div>
-
-      {/* caption content */}
-      {captionStatus === 'pending' && <span className="loading loading-spinner" />}
-      {captionStatus !== 'pending' && (
-        <div className="p-4 shadow-inner rounded-xl text-sm sm:text-base bg-slate-100 overflow-auto max-h-64">
-          {captionStatus === 'noCaption' && 'No caption available'}
-          {captionStatus === 'loaded' && caption}
-        </div>
-      )}
-    </div>
+    <YouTubeVideoContent
+      title="Full Caption"
+      status={status}
+      subtitle={subtitle.join(', ')}
+      content={caption}
+    />
   );
 };
