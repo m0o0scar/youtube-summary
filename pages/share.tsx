@@ -15,7 +15,7 @@ interface SharePageProps {
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const host = context.req.headers.host;
   const path = context.req.url;
-  const { searchParams } = new URL(`https://${host}${path}`);
+  const url = new URL(`https://${host}${path}`);
 
   const props: SharePageProps = {};
   const items: [string, string][] = [
@@ -27,7 +27,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     ['duration', 'd'],
   ];
   for (const [name, key] of items) {
-    const param = searchParams.get(key) as string;
+    const param = url.searchParams.get(key) as string;
     if (param) Object.assign(props, { [name]: decodeURIComponent(param) });
   }
 
