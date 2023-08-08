@@ -13,6 +13,7 @@ export const useYouTubeVideoComments = (videoId?: string) => {
   useEffect(() => {
     setStatus('pending');
     setComments([]);
+    setCommentsTokens(0);
 
     (async () => {
       if (videoId) {

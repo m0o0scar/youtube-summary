@@ -26,6 +26,7 @@ export const YouTubeVideoComments: FC<YouTubeVideoCommentsProps> = ({
       status={status}
       subtitle={subtitle.join(', ')}
       content={comments}
+      emptyPlaceholder="No comments"
     />
   );
 };

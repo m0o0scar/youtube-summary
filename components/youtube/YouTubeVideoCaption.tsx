@@ -28,6 +28,7 @@ export const YouTubeVideoCaption: FC<YouTubeVideoCaptionProps> = ({
       status={status}
       subtitle={subtitle.join(', ')}
       content={caption}
+      emptyPlaceholder="No caption"
     />
   );
 };
