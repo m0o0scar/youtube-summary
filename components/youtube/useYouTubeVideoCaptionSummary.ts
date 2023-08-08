@@ -9,8 +9,8 @@ ${title}
 ${caption}
 
 ## Task ##
-Summarize the caption into a short list of key points (no more than 10) that are most relevant to the title, and reply in English.
-Your reply should be concise, easy to understand. You should reply without any redundant content, title, or description.`,
+Summarize the caption into a short paragraph (within 10 sentences), and reply in English.
+Your reply should be concise, easy to understand. You should reply without any redundant content like title or description.`,
 
     'zh-CN': `## 视频标题 ##
 ${title}
@@ -19,8 +19,8 @@ ${title}
 ${caption}
 
 ## 任务 ##
-将字幕总结成跟标题最为相关的最主要的关键点（不多于10个），并以中文回复。
-你的总结应简洁、易懂、没有多余的内容，不用带标题、任何前后缀（比如“观点：“、“要点：”等）、或描述。`,
+将字幕总结成一段概括字幕主要内容、事实、和观点的短文（不超过十句话），并以中文回复。你的总结应简洁和易懂，不用带标题或描述等多余内容。
+重要的事情说三遍：请以中文回复，请以中文回复，请以中文回复！`,
   }[language]!;
 };
 
