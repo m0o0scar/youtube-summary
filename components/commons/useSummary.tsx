@@ -57,7 +57,7 @@ export const useSummary = (
           {
             temperature: 0.2,
             onStream: ({ acc }, model) => {
-              setSummary(acc);
+              setSummary(acc.replace(/\n{2,}/g, '\n'));
               setModel(model);
             },
           },
