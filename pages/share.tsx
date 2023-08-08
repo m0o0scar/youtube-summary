@@ -14,7 +14,7 @@ interface SharePageProps {
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const host = context.req.headers.host;
   const path = context.req.url;
-  const { searchParams } = new URL(`${host}${path}`);
+  const { searchParams } = new URL(`https://${host}${path}`);
 
   const url = searchParams.get('u') as string;
   const thumbnail = searchParams.get('p') as string;
