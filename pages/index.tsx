@@ -20,7 +20,7 @@ export default function Page() {
 
   return (
     <>
-      <Header title="YouTube Summary" emoji="📑" />
+      <Header title="YouTube Summary" />
 
       <div className="drawer drawer-end">
         <input id="settings-drawer" type="checkbox" className="drawer-toggle" />
