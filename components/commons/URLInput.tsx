@@ -71,7 +71,7 @@ export const URLInput: FC<URLInputProps> = ({ disabled, onSupportedURLFound }) =
           type="text"
           disabled={disabled}
           placeholder="URL"
-          className="input input-bordered w-full"
+          className="input input-sm sm:input-md input-bordered w-full"
           value={value}
           onChange={(e) => setValue(e.target.value)}
           onKeyDown={onInputKeydown}
@@ -80,7 +80,11 @@ export const URLInput: FC<URLInputProps> = ({ disabled, onSupportedURLFound }) =
       </div>
 
       {/* submit button */}
-      <button className="btn" disabled={disabled || !value} onClick={() => onGoButtonClick()}>
+      <button
+        className="btn btn-sm sm:btn-md"
+        disabled={disabled || !value}
+        onClick={() => onGoButtonClick()}
+      >
         Go
       </button>
     </div>
