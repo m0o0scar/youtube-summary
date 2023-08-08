@@ -1,5 +1,4 @@
-import { useRouter } from 'next/navigation';
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 
 import { SupportedURL } from '@type';
 
@@ -18,8 +17,6 @@ export interface YouTubeContentProps {
 }
 
 export const YouTubeContent: FC<YouTubeContentProps> = ({ source, language }) => {
-  const router = useRouter();
-
   const isYouTubeSource = source?.type === 'youtube';
   const videoId = isYouTubeSource ? source.id : undefined;
 
@@ -36,24 +33,17 @@ export const YouTubeContent: FC<YouTubeContentProps> = ({ source, language }) =>
   // video comments
   const { commentsStatus, comments, commentsTokens } = useYouTubeVideoComments(videoId);
 
-  const onShare = () => {
-    const searchParams = new URLSearchParams();
-    if (source?.url) searchParams.set('u', source.url);
-    searchParams.set('p', thumbnail);
-    searchParams.set('t', title);
-    searchParams.set('c', captionSummary);
-    const url = `/share?${searchParams.toString()}`;
+  const [shareParams, setShareParams] = useState<URLSearchParams | undefined>(undefined);
 
-    if (navigator.share!) {
-      navigator.share({
-        title,
-        text: captionSummary,
-        url,
-      });
-    } else {
-      router.push(url);
-    }
-  };
+  useEffect(() => {
+    const params = new URLSearchParams();
+    source?.url && params.set('u', source.url);
+    thumbnail && params.set('p', thumbnail);
+    title && params.set('t', title);
+    captionSummary && params.set('c', captionSummary);
+    duration && params.set('d', duration);
+    setShareParams(params);
+  }, [source, thumbnail, title, captionSummary, duration]);
 
   if (!source || source.type !== 'youtube') return null;
 
@@ -75,8 +65,8 @@ export const YouTubeContent: FC<YouTubeContentProps> = ({ source, language }) =>
           title={title}
           caption={caption}
           language={language}
+          shareParams={shareParams}
           onSummaryChange={setCaptionSummary}
-          onShare={onShare}
         />
       )}
       <YouTubeVideoCaption

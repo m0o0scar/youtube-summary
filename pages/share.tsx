@@ -9,6 +9,7 @@ export default function Page() {
   const thumbnail = searchParams.get('p') as string;
   const title = searchParams.get('t') as string;
   const content = searchParams.get('c') as string;
+  const duration = searchParams.get('d') as string;
 
   return (
     <>
@@ -25,7 +26,7 @@ export default function Page() {
       />
 
       <div className="absolute w-screen h-screen flex items-center justify-center">
-        <YouTubeVideoShareCard {...{ url, thumbnail, title, content }} />
+        <YouTubeVideoShareCard {...{ url, thumbnail, title, content, duration }} />
       </div>
     </>
   );

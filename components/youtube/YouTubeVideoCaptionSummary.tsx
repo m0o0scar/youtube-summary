@@ -1,4 +1,4 @@
-import { FC, useEffect } from 'react';
+import { FC, useEffect, useState } from 'react';
 
 import { ShareIcon } from '@heroicons/react/24/solid';
 
@@ -10,8 +10,8 @@ export interface YouTubeVideoCaptionSummaryProps {
   title?: string;
   caption?: string;
   language?: string;
+  shareParams?: URLSearchParams;
   onSummaryChange?: (value: string) => void;
-  onShare?: () => void;
 }
 
 export const YouTubeVideoCaptionSummary: FC<YouTubeVideoCaptionSummaryProps> = ({
@@ -19,23 +19,29 @@ export const YouTubeVideoCaptionSummary: FC<YouTubeVideoCaptionSummaryProps> = (
   title,
   caption,
   language,
+  shareParams,
   onSummaryChange,
-  onShare,
 }) => {
   const { summary, ...others } = useYouTubeVideoCaptionSummary(videoId, title, caption, language);
+  const [shareUrl, setShareUrl] = useState<string>('');
 
   useEffect(() => {
     onSummaryChange?.(summary);
   }, [summary]);
+
+  useEffect(() => {
+    const params = shareParams ? `?${shareParams.toString()}` : '';
+    setShareUrl(`/share${params}`);
+  }, [shareParams]);
 
   return (
     <YouTubeVideoContentSummary
       summary={summary}
       {...others}
       extraActions={
-        <button className="btn btn-circle btn-xs" onClick={onShare}>
+        <a className="btn btn-circle btn-xs" href={shareUrl} target="_blank">
           <ShareIcon className="w-1/2 h-1/2" />
-        </button>
+        </a>
       }
     />
   );
