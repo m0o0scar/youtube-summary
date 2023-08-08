@@ -34,9 +34,16 @@ export default function Page({ url, thumbnail, title, content, duration }: Share
         description={content}
         extra={
           <>
-            {title && <meta property="og:title" content={title} />}
-            {content && <meta property="og:description" content={content} />}
-            {thumbnail && <meta property="og:image" content={thumbnail} />}
+            {/* Open Graph */}
+            <meta property="og:title" content={title} />
+            <meta property="og:description" content={content} />
+            <meta property="og:image" content={thumbnail} />
+
+            {/* Twitter */}
+            <meta name="twitter:card" content="summary_large_image" />
+            <meta name="twitter:title" content={title} />
+            <meta name="twitter:description" content={content} />
+            <meta name="twitter:image" content={thumbnail} />
           </>
         }
       />
