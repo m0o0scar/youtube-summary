@@ -44,7 +44,7 @@ export const YouTubeVideoShareCard: FC<YouTubeVideoShareCardProps> = ({
         {content && <p className="whitespace-pre-wrap text-sm p-3 overflow-y-auto">{content}</p>}
 
         {/* model */}
-        {model && <p className="text-xs text-slate-400 px-3 mb-4">By {model}</p>}
+        {model && <p className="text-xs text-slate-400 px-3 mb-4 grow-0">By {model}</p>}
       </div>
     </div>
   );
