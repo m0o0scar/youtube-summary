@@ -31,8 +31,7 @@ export const YouTubeVideoContent: FC<YouTubeVideoContentProps> = ({
         {/* content */}
         {status === 'pending' && <span className="loading loading-spinner" />}
         {status !== 'pending' && (
-          <div className="text-sm sm:text-base text-slate-600 dark:text-slate-300 overflow-auto max-h-64">
-            {status === 'empty' && emptyPlaceholder}
+          <div className="text-sm text-slate-600 dark:text-slate-300 overflow-auto max-h-64">
             {status === 'loaded' && typeof content === 'string' && content}
             {status === 'loaded' && isArray(content) && (
               <ol className="m-0 pl-8">
