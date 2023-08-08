@@ -18,12 +18,17 @@ export const YouTubeVideoContent: FC<YouTubeVideoContentProps> = ({
   content,
   emptyPlaceholder = null,
 }) => {
+  if (status === 'empty') return emptyPlaceholder;
+
   return (
     <div className="collapse bg-base-200 dark:bg-slate-700">
       <input type="checkbox" />
       <div className="collapse-title">
         <div className="flex gap-2 items-center">
-          <h3>{title}</h3>
+          <h3>
+            {title}{' '}
+            {status === 'pending' && <span className="loading loading-spinner loading-xs" />}
+          </h3>
           {subtitle && <span className="text-xs text-slate-400">/ {subtitle}</span>}
         </div>
       </div>
