@@ -57,7 +57,7 @@ export const YouTubeVideoCaptionSummary: FC<YouTubeVideoCaptionSummaryProps> = (
       model={model}
       {...others}
       extraActions={
-        <button className="btn btn-circle btn-xs" onClick={onShare}>
+        <button className="btn btn-circle btn-sm" onClick={onShare}>
           <ShareIcon className="w-1/2 h-1/2" />
         </button>
       }

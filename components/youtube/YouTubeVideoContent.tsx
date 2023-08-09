@@ -25,10 +25,10 @@ export const YouTubeVideoContent: FC<YouTubeVideoContentProps> = ({
       <input type="checkbox" />
       <div className="collapse-title">
         <div className="flex gap-2 items-center">
-          <h3>
+          <h4>
             {title}{' '}
             {status === 'pending' && <span className="loading loading-spinner loading-xs" />}
-          </h3>
+          </h4>
           {subtitle && <span className="text-xs text-slate-400">/ {subtitle}</span>}
         </div>
       </div>
@@ -36,7 +36,7 @@ export const YouTubeVideoContent: FC<YouTubeVideoContentProps> = ({
         {/* content */}
         {status === 'pending' && <span className="loading loading-spinner" />}
         {status !== 'pending' && (
-          <div className="text-sm text-slate-600 dark:text-slate-300 overflow-auto max-h-64">
+          <div className="text-sm text-slate-600 dark:text-slate-300 overflow-auto max-h-96">
             {status === 'loaded' && typeof content === 'string' && content}
             {status === 'loaded' && isArray(content) && (
               <ol className="m-0 pl-8">

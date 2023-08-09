@@ -41,7 +41,7 @@ export const YouTubeVideoContentSummary: FC<YouTubeVideoContentSummaryProps> = (
         {done && (
           <div className="flex gap-2">
             {extraActions}
-            <button className="btn btn-circle btn-xs" onClick={regen}>
+            <button className="btn btn-circle btn-sm" onClick={regen}>
               <ArrowPathIcon className="w-1/2 h-1/2" />
             </button>
           </div>
