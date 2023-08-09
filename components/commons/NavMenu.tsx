@@ -7,7 +7,7 @@ export const NavMenu = () => {
   const { status } = useSession();
 
   return (
-    <div className="not-prose dropdown dropdown-end fixed right-3 top-4">
+    <div className="not-prose dropdown dropdown-end fixed right-3 top-4 z-30">
       {/* login button */}
       {status === 'unauthenticated' && <LoginButton className="btn-sm" />}
 
