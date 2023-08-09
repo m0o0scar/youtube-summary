@@ -55,7 +55,7 @@ export const useSummary = (
           [OpenAI_GPT3_5, OpenAI_GPT3_5_16k, Anthropic_Claude2],
           prompt,
           {
-            temperature: 0.2,
+            temperature: 0.5,
             onStream: ({ acc }, model) => {
               setSummary(acc.replace(/\n{2,}/g, '\n'));
               setModel(model);
