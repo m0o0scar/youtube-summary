@@ -21,7 +21,9 @@
     "openai": "^3.3.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-markdown": "^8.0.7",
     "sanitize-html": "^2.11.0",
+    "styled-components": "^6.0.7",
     "tiktoken": "^1.0.10",
     "youtube-caption-extractor": "^1.4.3"
   },
