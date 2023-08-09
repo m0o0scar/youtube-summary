@@ -1,8 +1,11 @@
 import sanitizeHtml from 'sanitize-html';
 
 import {
-    YouTubeCommentThread, YouTubeCommentThreadsRequestOptions, YouTubeCommentThreadsResponse,
-    YouTubeListCaptionsResponse, YouTubeVideoInfoResponse
+  YouTubeCommentThread,
+  YouTubeCommentThreadsRequestOptions,
+  YouTubeCommentThreadsResponse,
+  YouTubeListCaptionsResponse,
+  YouTubeVideoInfoResponse,
 } from './type';
 
 export const fetchYouTubeVideoInfo = async (videoId: string) => {
@@ -61,7 +64,7 @@ export const fetchYouTubeVideoComments = async (
   videoId: string,
   options?: YouTubeCommentThreadsRequestOptions,
 ) => {
-  const { maxResults = 20, order = 'relevance' } = options || {};
+  const { maxResults = 50, order = 'relevance' } = options || {};
 
   const comments: YouTubeCommentThread[] = [];
   let pageToken = '';
