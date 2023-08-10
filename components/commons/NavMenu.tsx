@@ -24,7 +24,7 @@ export const NavMenu: FC<NavMenuProps> = ({ language, setLanguage }) => {
             className="mt-1 z-[1] p-2 shadow menu dropdown-content bg-base-100 rounded-xl"
           >
             <li>
-              <label className="swap text-center">
+              <label className="swap text-center h-9">
                 <input
                   type="checkbox"
                   checked={language === 'en'}
