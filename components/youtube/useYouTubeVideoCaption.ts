@@ -27,13 +27,15 @@ export const useYouTubeVideoCaption = (videoId?: string, preferredLanguage: stri
 
         if (language) {
           const text = await fetchYouTubeVideoCaption(videoId, language);
-          setCaption(text);
-          setCaptionLanguage(language);
-          setCaptionTokens(countTokensOfText(text));
-          setStatus('loaded');
-        } else {
-          setStatus('empty');
+          if (text) {
+            setCaption(text);
+            setCaptionLanguage(language);
+            setCaptionTokens(countTokensOfText(text));
+            setStatus('loaded');
+            return;
+          }
         }
+        setStatus('empty');
       }
     })();
   }, [videoId, preferredLanguage]);
