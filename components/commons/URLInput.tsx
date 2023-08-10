@@ -1,15 +1,16 @@
 import { useSearchParams } from 'next/navigation';
 import { FC, useEffect, useState } from 'react';
 
+import { useSettings } from '@components/settings/useSettings';
 import { getYouTubeVideoId } from '@components/youtube/utils';
 import { SupportedURL } from '@type';
 
-export interface URLInputProps {
+export interface URLInputProps extends ReturnType<typeof useSettings> {
   disabled?: boolean;
   onSupportedURLFound?: (url: SupportedURL) => void;
 }
 
-export const URLInput: FC<URLInputProps> = ({ disabled, onSupportedURLFound }) => {
+export const URLInput: FC<URLInputProps> = ({ language, disabled, onSupportedURLFound }) => {
   // user input value
   const [value, setValue] = useState('');
 
@@ -77,11 +78,16 @@ export const URLInput: FC<URLInputProps> = ({ disabled, onSupportedURLFound }) =
           onKeyDown={onInputKeydown}
           onClick={onClickOnInput}
         />
+        <label className="label">
+          <span className="label-text-alt">
+            I will summarize this URL in <b>{language === 'en' ? 'English' : 'Chinese'}</b>.
+          </span>
+        </label>
       </div>
 
       {/* submit button */}
       <button
-        className="btn btn-sm sm:btn-md"
+        className="btn btn-sm sm:btn-md mb-8"
         disabled={disabled || !value}
         onClick={() => onGoButtonClick()}
       >
