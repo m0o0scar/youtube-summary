@@ -46,14 +46,13 @@ export const YouTubeVideoInfoCard: FC<YouTubeVideoInfoProps> = ({
         {/* title */}
         {!title && <span className="loading loading-spinner" />}
         {title && (
-          <a className="no-underline" href={url} target="_blank">
-            <h3 className="hidden sm:block">{title}</h3>
-            <div className="text-lg sm:hidden">{title}</div>
+          <a className="no-underline line-clamp-2" href={url} target="_blank">
+            <div className="text-lg sm:text-xl">{title}</div>
           </a>
         )}
 
         {subtitle.length && <div className="text-sm">{subtitle.join(', ')}</div>}
-        {subtitle.length && channel && <hr className="m-0" />}
+        {subtitle.length && channel && <hr className="m-1" />}
         {channel && <YouTubeChannelInfo channel={channel} />}
       </div>
     </div>
