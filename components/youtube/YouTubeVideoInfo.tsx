@@ -42,7 +42,7 @@ export const YouTubeVideoInfoCard: FC<YouTubeVideoInfoProps> = ({
       )}
 
       {/* info */}
-      <div className="flex-1 flex flex-col gap-2">
+      <div className="flex-1 flex flex-col gap-2 w-full">
         {/* title */}
         {!title && <span className="loading loading-spinner" />}
         {title && (
