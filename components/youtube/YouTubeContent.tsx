@@ -21,7 +21,7 @@ export const YouTubeContent: FC<YouTubeContentProps> = ({ source, language }) =>
   const videoId = isYouTubeSource ? source.id : undefined;
 
   // video info
-  const { title, thumbnail, duration } = useYouTubeVideoInfo(videoId);
+  const { channel, title, thumbnail, duration, ...otherInfo } = useYouTubeVideoInfo(videoId);
 
   // video caption
   const { captionStatus, caption, captionLanguage, captionTokens } = useYouTubeVideoCaption(
@@ -59,10 +59,11 @@ export const YouTubeContent: FC<YouTubeContentProps> = ({ source, language }) =>
     <>
       {/* info */}
       <YouTubeVideoInfoCard
-        title={title}
         url={isYouTubeSource ? source.url : ''}
+        title={title}
         thumbnail={thumbnail}
         duration={duration}
+        {...otherInfo}
       />
 
       {/* caption */}
