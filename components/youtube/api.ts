@@ -1,11 +1,8 @@
 import sanitizeHtml from 'sanitize-html';
 
 import {
-  YouTubeCommentThread,
-  YouTubeCommentThreadsRequestOptions,
-  YouTubeCommentThreadsResponse,
-  YouTubeListCaptionsResponse,
-  YouTubeVideoInfoResponse,
+    YouTubeChannelListResponse, YouTubeCommentThread, YouTubeCommentThreadsRequestOptions,
+    YouTubeCommentThreadsResponse, YouTubeListCaptionsResponse, YouTubeVideoInfoResponse
 } from './type';
 
 export const fetchYouTubeVideoInfo = async (videoId: string) => {
@@ -97,4 +94,15 @@ export const fetchYouTubeVideoComments = async (
   }
 
   return comments;
+};
+
+export const fetchYouTubeChannelInfo = async (channelId: string) => {
+  const params = new URLSearchParams({
+    part: 'snippet,statistics',
+    id: channelId,
+  });
+  const url = `/api/proxy/youtube/v3/channels?${params.toString()}`;
+  const response = await fetch(url);
+  const json = (await response.json()) as YouTubeChannelListResponse;
+  return json;
 };

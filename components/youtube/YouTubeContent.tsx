@@ -2,6 +2,7 @@ import { FC, useEffect, useState } from 'react';
 
 import { SupportedURL } from '@type';
 
+import { useYouTubeChannel } from './useYouTubeChannel';
 import { useYouTubeVideoCaption } from './useYouTubeVideoCaption';
 import { useYouTubeVideoComments } from './useYouTubeVideoComments';
 import { useYouTubeVideoInfo } from './useYouTubeVideoInfo';
@@ -21,7 +22,10 @@ export const YouTubeContent: FC<YouTubeContentProps> = ({ source, language }) =>
   const videoId = isYouTubeSource ? source.id : undefined;
 
   // video info
-  const { channel, title, thumbnail, duration, ...otherInfo } = useYouTubeVideoInfo(videoId);
+  const { channelId, title, thumbnail, duration, ...otherInfo } = useYouTubeVideoInfo(videoId);
+
+  // channel info
+  const { channel } = useYouTubeChannel(channelId);
 
   // video caption
   const { captionStatus, caption, captionLanguage, captionTokens } = useYouTubeVideoCaption(
@@ -60,6 +64,7 @@ export const YouTubeContent: FC<YouTubeContentProps> = ({ source, language }) =>
       {/* info */}
       <YouTubeVideoInfoCard
         url={isYouTubeSource ? source.url : ''}
+        channel={channel}
         title={title}
         thumbnail={thumbnail}
         duration={duration}

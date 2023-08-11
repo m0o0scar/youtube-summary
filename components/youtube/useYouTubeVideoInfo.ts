@@ -16,7 +16,7 @@ export const useYouTubeVideoInfo = (videoId?: string) => {
   const [dislikeCount, setDislikeCount] = useState(0);
   const [commentCount, setCommentCount] = useState(0);
 
-  const [channel, setChannel] = useState('');
+  const [channelId, setChannelId] = useState('');
 
   const reset = () => {
     setTitle('');
@@ -26,7 +26,7 @@ export const useYouTubeVideoInfo = (videoId?: string) => {
     setLikeCount(0);
     setDislikeCount(0);
     setCommentCount(0);
-    setChannel('');
+    setChannelId('');
   };
 
   useEffect(() => {
@@ -64,7 +64,7 @@ export const useYouTubeVideoInfo = (videoId?: string) => {
         setCommentCount(parseInt(response.statistics.commentCount) || 0);
 
         // channel
-        setChannel(response.snippet.channelId);
+        setChannelId(response.snippet.channelId);
       }
     })();
   }, [videoId]);
@@ -79,6 +79,6 @@ export const useYouTubeVideoInfo = (videoId?: string) => {
     dislikeCount,
     commentCount,
 
-    channel,
+    channelId,
   };
 };

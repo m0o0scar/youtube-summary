@@ -3,14 +3,18 @@ import { FC } from 'react';
 
 import { formatNumberShort, percentage } from '@components/utils/number';
 
+import { YouTubeChannel } from './type';
 import { useYouTubeVideoInfo } from './useYouTubeVideoInfo';
+import { YouTubeChannelInfo } from './YouTubeChannelInfo';
 
 export interface YouTubeVideoInfoProps extends Partial<ReturnType<typeof useYouTubeVideoInfo>> {
   url?: string;
+  channel?: YouTubeChannel | null;
 }
 
 export const YouTubeVideoInfoCard: FC<YouTubeVideoInfoProps> = ({
   url,
+  channel,
   title,
   thumbnail,
   duration,
@@ -18,36 +22,38 @@ export const YouTubeVideoInfoCard: FC<YouTubeVideoInfoProps> = ({
   viewCount,
   commentCount,
 }) => {
-  const counts = [];
-  if (viewCount) counts.push(`👁 ${formatNumberShort(viewCount)}`);
-  if (likeCount) counts.push(`👍 ${formatNumberShort(likeCount)}`);
-  if (commentCount) counts.push(`💬 ${formatNumberShort(commentCount)}`);
+  const subtitle = [];
+  if (duration) subtitle.push(`🕚 ${duration}`);
+  if (viewCount) subtitle.push(`👁 ${formatNumberShort(viewCount)}`);
+  if (likeCount) subtitle.push(`👍 ${formatNumberShort(likeCount)}`);
+  if (commentCount) subtitle.push(`💬 ${formatNumberShort(commentCount)}`);
 
   return (
-    <div className="flex gap-4 items-start">
+    <div className="flex flex-col sm:flex-row gap-4 items-start">
       {/* thumbnail */}
-      {!thumbnail && <div className="w-36 sm:w-60 rounded-lg aspect-video bg-slate-200" />}
+      {!thumbnail && <div className="w-full sm:w-60 rounded-lg aspect-video bg-slate-200" />}
       {thumbnail && (
         <img
           src={thumbnail}
           alt="thumbnail"
-          className="m-0 w-36 sm:w-60 rounded-lg aspect-video object-cover"
+          className="m-0 w-full sm:w-60 rounded-lg aspect-video object-cover"
         />
       )}
 
       {/* info */}
-      <div className="flex-1 flex flex-col gap-1">
+      <div className="flex-1 flex flex-col gap-2">
         {/* title */}
         {!title && <span className="loading loading-spinner" />}
         {title && (
-          <a href={url} target="_blank">
+          <a className="no-underline" href={url} target="_blank">
             <h3 className="hidden sm:block">{title}</h3>
-            <div className="text-sm sm:hidden">{title}</div>
+            <div className="text-lg sm:hidden">{title}</div>
           </a>
         )}
 
-        {counts.length && <div className="text-xs sm:text-sm">{counts.join(', ')}</div>}
-        {duration && <div className="text-xs sm:text-sm">{duration}</div>}
+        {subtitle.length && <div className="text-sm">{subtitle.join(', ')}</div>}
+        <hr className="m-0" />
+        <YouTubeChannelInfo channel={channel} />
       </div>
     </div>
   );

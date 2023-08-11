@@ -1,3 +1,9 @@
+// Common
+
+export type ContentStatus = 'pending' | 'empty' | 'loaded';
+
+// Info
+
 export interface YouTubeVideoInfoResponse {
   kind: string;
   etag: string;
@@ -20,7 +26,7 @@ export interface YouTubeVideoInfo {
     title: string;
     description: string;
     thumbnails: {
-      [key in YouTubeVideoInfoThumbnailKey]?: {
+      [key in 'default' | 'medium' | 'high' | 'standard' | 'maxres']?: {
         url: string;
         width: number;
         height: number;
@@ -65,29 +71,7 @@ export interface YouTubeVideoInfo {
   };
 }
 
-export type YouTubeVideoInfoThumbnailKey = 'default' | 'medium' | 'high' | 'standard' | 'maxres';
-
-export interface YouTubeListCaptionItemSnippet {
-  videoId: string;
-  lastUpdated: string;
-  trackKind: string;
-  language: string;
-  name: string;
-  audioTrackType: string;
-  isCC: boolean;
-  isLarge: boolean;
-  isEasyReader: boolean;
-  isDraft: boolean;
-  isAutoSynced: boolean;
-  status: string;
-}
-
-export interface YouTubeListCaptionsItem {
-  kind: string;
-  etag: string;
-  id: string;
-  snippet: YouTubeListCaptionItemSnippet;
-}
+// Caption
 
 export interface YouTubeListCaptionsResponse {
   kind: string;
@@ -95,12 +79,32 @@ export interface YouTubeListCaptionsResponse {
   items: YouTubeListCaptionsItem[];
 }
 
-export interface YouTubeCommentThreadsRequestOptions {
-  maxResults?: number;
-  order?: YouTubeCommentThreadsOrder;
+export interface YouTubeListCaptionsItem {
+  kind: string;
+  etag: string;
+  id: string;
+  snippet: {
+    videoId: string;
+    lastUpdated: string;
+    trackKind: string;
+    language: string;
+    name: string;
+    audioTrackType: string;
+    isCC: boolean;
+    isLarge: boolean;
+    isEasyReader: boolean;
+    isDraft: boolean;
+    isAutoSynced: boolean;
+    status: string;
+  };
 }
 
-export type YouTubeCommentThreadsOrder = 'time' | 'relevance';
+// Comments
+
+export interface YouTubeCommentThreadsRequestOptions {
+  maxResults?: number;
+  order?: 'time' | 'relevance';
+}
 
 export interface YouTubeCommentThreadsResponse {
   kind: string;
@@ -148,4 +152,48 @@ export interface YouTubeComment {
   };
 }
 
-export type ContentStatus = 'pending' | 'empty' | 'loaded';
+// Channel
+
+export interface YouTubeChannelListResponse {
+  kind: 'youtube#channelListResponse';
+  etag: string;
+  nextPageToken: string;
+  prevPageToken: string;
+  pageInfo: {
+    totalResults: number;
+    resultsPerPage: number;
+  };
+  items: YouTubeChannel[];
+}
+
+export interface YouTubeChannel {
+  kind: 'youtube#channel';
+  etag: string;
+  id: string;
+  snippet: {
+    title: string;
+    description: string;
+    customUrl: string;
+    publishedAt: string;
+    thumbnails: {
+      [key in 'default' | 'medium' | 'high']: {
+        url: string;
+        width: number;
+        height: number;
+      };
+    };
+    defaultLanguage: string;
+    localized: {
+      title: string;
+      description: string;
+    };
+    country: string;
+  };
+
+  statistics: {
+    viewCount: string;
+    subscriberCount: string; // this value is rounded to three significant figures
+    hiddenSubscriberCount: boolean;
+    videoCount: string;
+  };
+}
