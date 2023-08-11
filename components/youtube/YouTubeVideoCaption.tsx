@@ -1,6 +1,6 @@
 import { FC } from 'react';
 
-import { formatTokens } from '@components/llm/utils';
+import { formatNumberShort } from '@components/utils/number';
 
 import { ContentStatus } from './type';
 import { YouTubeVideoContent } from './YouTubeVideoContent';
@@ -20,7 +20,7 @@ export const YouTubeVideoCaption: FC<YouTubeVideoCaptionProps> = ({
 }) => {
   const subtitle = [];
   if (language) subtitle.push(language);
-  if (tokens) subtitle.push(`${formatTokens(tokens)} tokens`);
+  if (tokens) subtitle.push(`${formatNumberShort(tokens, 1024)} tokens`);
 
   return (
     <YouTubeVideoContent
