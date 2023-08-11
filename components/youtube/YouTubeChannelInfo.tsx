@@ -22,12 +22,6 @@ export const YouTubeChannelInfo: FC<YouTubeChannelProps> = ({ channel }) => {
     statistics: { subscriberCount },
   } = channel;
 
-  console.log(
-    subscriberCount,
-    parseInt(subscriberCount),
-    formatNumberShort(parseInt(subscriberCount)),
-  );
-
   return (
     <div className="flex items-center gap-2">
       {/* avatar */}
