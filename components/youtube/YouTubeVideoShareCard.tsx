@@ -27,7 +27,12 @@ export const YouTubeVideoShareCard: FC<YouTubeVideoShareCardProps> = ({
       {/* thumbnail */}
       {thumbnail && (
         <a href={url} target="_blank">
-          <img className="aspect-video object-cover" src={thumbnail} alt="Thumbnail" />
+          <img
+            className="aspect-video object-cover"
+            src={thumbnail}
+            alt="Thumbnail"
+            referrerPolicy="no-referrer"
+          />
         </a>
       )}
 

@@ -6,12 +6,10 @@ import { formatNumberShort } from '@components/utils/number';
 import { YouTubeChannel } from './type';
 
 export interface YouTubeChannelProps {
-  channel?: YouTubeChannel | null;
+  channel: YouTubeChannel;
 }
 
 export const YouTubeChannelInfo: FC<YouTubeChannelProps> = ({ channel }) => {
-  if (!channel) return null;
-
   const {
     snippet: {
       customUrl,
@@ -27,7 +25,7 @@ export const YouTubeChannelInfo: FC<YouTubeChannelProps> = ({ channel }) => {
       {/* avatar */}
       <div className="not-prose avatar">
         <div className="w-6 rounded-xl">
-          <img src={defaultThumbnail} alt="channel avatar" />
+          <img src={defaultThumbnail} alt="channel avatar" referrerPolicy="no-referrer" />
         </div>
       </div>
 

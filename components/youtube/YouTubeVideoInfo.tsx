@@ -37,6 +37,7 @@ export const YouTubeVideoInfoCard: FC<YouTubeVideoInfoProps> = ({
           src={thumbnail}
           alt="thumbnail"
           className="m-0 w-full sm:w-60 rounded-lg aspect-video object-cover"
+          referrerPolicy="no-referrer"
         />
       )}
 
@@ -52,8 +53,8 @@ export const YouTubeVideoInfoCard: FC<YouTubeVideoInfoProps> = ({
         )}
 
         {subtitle.length && <div className="text-sm">{subtitle.join(', ')}</div>}
-        <hr className="m-0" />
-        <YouTubeChannelInfo channel={channel} />
+        {subtitle.length && channel && <hr className="m-0" />}
+        {channel && <YouTubeChannelInfo channel={channel} />}
       </div>
     </div>
   );
