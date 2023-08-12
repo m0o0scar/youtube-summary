@@ -51,8 +51,8 @@ export const YouTubeVideoInfoCard: FC<YouTubeVideoInfoProps> = ({
           </a>
         )}
 
-        {subtitle.length && <div className="text-sm">{subtitle.join(', ')}</div>}
-        {subtitle.length && channel && <hr className="m-1" />}
+        {subtitle.length > 0 && <div className="text-sm">{subtitle.join(', ')}</div>}
+        {subtitle.length > 0 && channel && <hr className="m-1" />}
         {channel && <YouTubeChannelInfo channel={channel} />}
       </div>
     </div>
