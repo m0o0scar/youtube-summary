@@ -10,7 +10,7 @@ This is the caption of the video, in <caption></caption> XML tag:
 ${caption}
 </caption>
 
-Your task is to summarize the caption into a short paragraph (within 10 sentences), and reply in English.
+Your task is to extract the major key points, facts, and opinions from the caption (try your best to keep it under 10 points), and reply in English.
 Your reply should be concise, easy to understand. You should reply without any redundant content like title or description.`,
 
     'zh-CN': `这是一个视频的标题，在<title></title> XML标签里：
@@ -21,7 +21,7 @@ Your reply should be concise, easy to understand. You should reply without any r
 ${caption}
 </caption>
 
-你的任务是将字幕总结成一段概括字幕主要内容、事实、和观点的短文（不超过十句话），并以中文回复。你的总结应简洁和易懂，不用带标题或描述等多余内容。
+你的任务是从字幕中总结出视频的关键要点、事实、和观点（尽量不超过十条），并以中文回复。你的总结应简洁和易懂，不用带标题或描述等多余内容。
 重要的事情说三遍：请以中文回复，请以中文回复，请以中文回复！`,
   }[language]!;
 };
