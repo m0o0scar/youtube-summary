@@ -26,7 +26,7 @@ export const YouTubeVideoShareCard: FC<YouTubeVideoShareCardProps> = ({
     <div className="card w-full sm:w-96 h-full sm:h-auto sm:max-h-[800px] rounded-none sm:rounded-2xl shadow-none sm:shadow-xl bg-base-100 overflow-hidden sm:border-2 border-white dark:border-slate-700">
       {/* thumbnail */}
       {thumbnail && (
-        <a href={url} target="_blank">
+        <a href={url}>
           <img
             className="aspect-video object-cover"
             src={thumbnail}
@@ -40,7 +40,7 @@ export const YouTubeVideoShareCard: FC<YouTubeVideoShareCardProps> = ({
         {/* title */}
         {title && (
           <>
-            <a href={url} target="_blank">
+            <a href={url}>
               <h3 className="card-title !p-3">{title}</h3>
             </a>
             {subtitle.length && (
