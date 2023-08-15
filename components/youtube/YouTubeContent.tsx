@@ -73,17 +73,15 @@ export const YouTubeContent: FC<YouTubeContentProps> = ({ source, language }) =>
 
       {/* caption */}
       <h2 className="!mt-4">Caption</h2>
-      {captionStatus === 'loaded' && (
-        <YouTubeVideoCaptionSummary
-          videoId={videoId}
-          title={title}
-          caption={caption}
-          language={language}
-          shareParams={shareParams}
-          onSummaryChange={setCaptionSummary}
-          onModelChange={setCaptionModel}
-        />
-      )}
+      <YouTubeVideoCaptionSummary
+        videoId={videoId}
+        title={title}
+        caption={caption}
+        language={language}
+        shareParams={shareParams}
+        onSummaryChange={setCaptionSummary}
+        onModelChange={setCaptionModel}
+      />
       <YouTubeVideoCaption
         status={captionStatus}
         caption={caption}

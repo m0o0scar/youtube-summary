@@ -24,6 +24,20 @@ export const useSummary = (
 
   const reGenTrigger = useTrigger();
 
+  const loadSummaryFromCache = async (storageKey: string, ignoreCache?: boolean) => {
+    if (id && !ignoreCache) {
+      const cachedValue = localStorage.getItem(storageKey);
+      if (cachedValue) {
+        const cached = JSON.parse(cachedValue);
+        setSummary(cached.summary);
+        setModel(cached.model);
+        setDone(true);
+        return true;
+      }
+    }
+    return false;
+  };
+
   const createSummary = async (ignoreCache?: boolean) => {
     setModel('');
     setSummary('');
@@ -31,49 +45,42 @@ export const useSummary = (
     setError(null);
     setDone(false);
 
-    if (id && title && content) {
+    if (id) {
       const languageToUse = language?.startsWith('zh') ? 'zh-CN' : 'en';
       const storageKey = `${tag}-${id}-${languageToUse}`;
 
-      // is there a cache?
-      if (!ignoreCache) {
-        const cachedValue = localStorage.getItem(storageKey);
-        if (cachedValue) {
-          const cached = JSON.parse(cachedValue);
-          setSummary(cached.summary);
-          setModel(cached.model);
-          setDone(true);
-          return;
+      // if there is cache to use, use it and return
+      if (await loadSummaryFromCache(storageKey, ignoreCache)) return;
+
+      if (title && content) {
+        // no cache available, create new summary
+        const prompt = getPrompt(title, content, languageToUse);
+        try {
+          const t0 = new Date().getTime();
+          const { model, result } = await completion(
+            [OpenAI_GPT3_5, OpenAI_GPT3_5_16k, Anthropic_Claude_Instant],
+            prompt,
+            {
+              temperature: 0.5,
+              onStream: ({ acc }, model) => {
+                setSummary(acc.replace(/\n{2,}/g, '\n'));
+                setModel(model);
+              },
+            },
+          );
+
+          const t1 = new Date().getTime();
+          setDuration(t1 - t0);
+
+          // save to cache
+          localStorage.setItem(
+            storageKey,
+            JSON.stringify({ summary: result.replace(/\n{2,}/g, '\n'), model }),
+          );
+        } catch (error) {
+          setError(error as Error);
         }
       }
-
-      // no cache available, create new summary
-      const prompt = getPrompt(title, content, languageToUse);
-      try {
-        const t0 = new Date().getTime();
-        const { model, result } = await completion(
-          [OpenAI_GPT3_5, OpenAI_GPT3_5_16k, Anthropic_Claude_Instant],
-          prompt,
-          {
-            temperature: 0.5,
-            onStream: ({ acc }, model) => {
-              setSummary(acc.replace(/\n{2,}/g, '\n'));
-              setModel(model);
-            },
-          },
-        );
-
-        const t1 = new Date().getTime();
-        setDuration(t1 - t0);
-
-        localStorage.setItem(
-          storageKey,
-          JSON.stringify({ summary: result.replace(/\n{2,}/g, '\n'), model }),
-        );
-      } catch (error) {
-        setError(error as Error);
-      }
-
       setDone(true);
     }
   };
