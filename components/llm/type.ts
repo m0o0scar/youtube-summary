@@ -9,6 +9,7 @@ export interface LLMModel {
     | 'gpt-4-0613'
     | 'gpt-4-32k'
     | 'gpt-4-32k-0613'
+    | 'claude-instant-1'
     | 'claude-2';
 
   maxTokens: number;

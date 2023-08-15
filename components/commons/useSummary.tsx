@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
 import { completion } from '@components/llm/completion';
-import { Anthropic_Claude2 } from '@components/llm/providers/anthropic';
+import { Anthropic_Claude_Instant } from '@components/llm/providers/anthropic';
 import { OpenAI_GPT3_5, OpenAI_GPT3_5_16k } from '@components/llm/providers/openai';
 
 import { useTrigger } from './useTrigger';
@@ -52,7 +52,7 @@ export const useSummary = (
       try {
         const t0 = new Date().getTime();
         const { model, result } = await completion(
-          [OpenAI_GPT3_5, OpenAI_GPT3_5_16k, Anthropic_Claude2],
+          [OpenAI_GPT3_5, OpenAI_GPT3_5_16k, Anthropic_Claude_Instant],
           prompt,
           {
             temperature: 0.5,
