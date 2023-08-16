@@ -10,9 +10,15 @@ import { ArrowPathIcon } from '@heroicons/react/24/solid';
 dayjs.extend(dayjsDuration);
 
 const StyledReactMarkdown = styled(ReactMarkdown)`
+  display: flex;
+  flex-direction: column;
+  padding: 16px 0;
+  gap: 8px;
+
+  p,
   ul,
   ol {
-    margin: 8px 0;
+    margin: 0;
 
     li {
       margin: -8px;
