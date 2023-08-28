@@ -93,7 +93,7 @@ export const YouTubeContent: FC<YouTubeContentProps> = ({ source, language }) =>
 
       {/* comments */}
       <h2 className="!mt-4">Comments</h2>
-      {commentsStatus === 'loaded' && (
+      {commentsStatus === 'loaded' && comments.length > 5 && (
         <YouTubeVideoCommentsSummary
           videoId={videoId}
           title={title}
