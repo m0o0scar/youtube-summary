@@ -10,6 +10,11 @@ export interface NavMenuProps extends ReturnType<typeof useSettings> {}
 export const NavMenu: FC<NavMenuProps> = ({ language, setLanguage }) => {
   const { status } = useSession();
 
+  const onLanguageSwitchClick = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setLanguage(e.target.checked ? 'en' : 'zh-CN');
+    location.reload();
+  };
+
   return (
     <div className="not-prose dropdown dropdown-end fixed right-3 top-4 z-30">
       {/* login button */}
@@ -28,7 +33,7 @@ export const NavMenu: FC<NavMenuProps> = ({ language, setLanguage }) => {
                 <input
                   type="checkbox"
                   checked={language === 'en'}
-                  onChange={(e) => setLanguage(e.target.checked ? 'en' : 'zh-CN')}
+                  onChange={onLanguageSwitchClick}
                 />
                 <div className="swap-on">En</div>
                 <div className="swap-off">中文</div>

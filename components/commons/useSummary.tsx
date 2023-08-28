@@ -1,3 +1,4 @@
+import { debounce } from 'lodash';
 import { useEffect, useState } from 'react';
 
 import { completion } from '@components/llm/completion';
@@ -24,13 +25,15 @@ export const useSummary = (
 
   const reGenTrigger = useTrigger();
 
-  const createSummary = async (ignoreCache?: boolean) => {
+  const reset = () => {
     setModel('');
     setSummary('');
     setDuration(0);
     setError(null);
     setDone(false);
+  };
 
+  const createSummary = debounce(async (ignoreCache?: boolean) => {
     if (id && title && content) {
       const languageToUse = language?.startsWith('zh') ? 'zh-CN' : 'en';
       const storageKey = `${tag}-${id}-${languageToUse}`;
@@ -76,11 +79,15 @@ export const useSummary = (
 
       setDone(true);
     }
-  };
+  }, 200);
+
+  useEffect(() => {
+    reset();
+  }, [id]);
 
   useEffect(() => {
     createSummary();
-  }, [id, title, content, language]);
+  }, [title, content]);
 
   useEffect(() => {
     if (reGenTrigger.value) {

@@ -61,8 +61,6 @@ export const URLInput: FC<URLInputProps> = ({ language, disabled, onSupportedURL
     }
   }, [urlFromSearchParams]);
 
-  return null;
-
   return (
     <div className="flex gap-2 items-end">
       {/* URL input */}
