@@ -59,6 +59,7 @@ export const useSummary = (
           prompt,
           {
             temperature: 0.5,
+            maxReplyTokens: 1024,
             onStream: ({ acc }, model) => {
               setSummary(acc.replace(/\n{2,}/g, '\n'));
               setModel(model);
