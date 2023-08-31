@@ -1,10 +1,6 @@
 import { debounce } from 'lodash';
 import { useEffect, useState } from 'react';
 
-import { completion } from '@components/llm/completion';
-import { Anthropic_Claude_Instant } from '@components/llm/providers/anthropic';
-import { OpenAI_GPT3_5, OpenAI_GPT3_5_16k } from '@components/llm/providers/openai';
-
 import { useTrigger } from './useTrigger';
 
 export type GetPrompt = (title: string, content: string, language: 'en' | 'zh-CN') => string;
@@ -38,34 +34,43 @@ export const useSummary = (
       const languageToUse = language?.startsWith('zh') ? 'zh-CN' : 'en';
       const storageKey = `${tag}-${id}-${languageToUse}`;
 
-      // is there a cache?
-      if (!ignoreCache) {
-        const cachedValue = localStorage.getItem(storageKey);
-        if (cachedValue) {
-          const cached = JSON.parse(cachedValue);
-          setSummary(cached.summary);
-          setModel(cached.model);
-          setDone(true);
-          return;
-        }
-      }
+      // // is there a cache?
+      // if (!ignoreCache) {
+      //   const cachedValue = localStorage.getItem(storageKey);
+      //   if (cachedValue) {
+      //     const cached = JSON.parse(cachedValue);
+      //     setSummary(cached.summary);
+      //     setModel(cached.model);
+      //     setDone(true);
+      //     return;
+      //   }
+      // }
 
       // no cache available, create new summary
       const prompt = getPrompt(title, content, languageToUse);
       try {
         const t0 = new Date().getTime();
-        const { model, result } = await completion(
-          [OpenAI_GPT3_5, OpenAI_GPT3_5_16k, Anthropic_Claude_Instant],
-          prompt,
-          {
-            temperature: 0.5,
-            maxReplyTokens: 1024,
-            onStream: ({ acc }, model) => {
-              setSummary(acc.replace(/\n{2,}/g, '\n'));
-              setModel(model);
-            },
-          },
-        );
+
+        // const { model, result } = await completion(
+        //   [OpenAI_GPT3_5, OpenAI_GPT3_5_16k, Anthropic_Claude_Instant],
+        //   prompt,
+        //   {
+        //     temperature: 0.5,
+        //     maxReplyTokens: 1024,
+        //     onStream: ({ acc }, model) => {
+        //       setSummary(acc.replace(/\n{2,}/g, '\n'));
+        //       setModel(model);
+        //     },
+        //   },
+        // );
+
+        const response = await fetch('/api/ai/summary', {
+          method: 'POST',
+          body: JSON.stringify({ prompt }),
+        });
+
+        const result = await response.text();
+        setSummary(result);
 
         const t1 = new Date().getTime();
         setDuration(t1 - t0);

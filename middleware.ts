@@ -1,8 +1,6 @@
 import { NextRequestWithAuth, withAuth } from 'next-auth/middleware';
 import { NextFetchEvent, NextMiddleware, NextResponse } from 'next/server';
 
-import * as anthropicMiddleware from '@components/llm/providers/anthropic/middleware';
-import * as openAIMiddleware from '@components/llm/providers/openai/middleware';
 import * as youtubeMiddleware from '@components/youtube/middleware';
 
 export const config = {
@@ -12,11 +10,7 @@ export const config = {
   matcher: ['/api/proxy/:path*'],
 };
 
-const proxyMiddlewares: NextMiddleware[] = [
-  openAIMiddleware.middleware,
-  anthropicMiddleware.middleware,
-  youtubeMiddleware.middleware,
-];
+const proxyMiddlewares: NextMiddleware[] = [youtubeMiddleware.middleware];
 
 async function middleware(request: NextRequestWithAuth, event: NextFetchEvent) {
   // is this a request to /api/proxy?
