@@ -1,9 +1,6 @@
+import { Message, useChat } from 'ai/react';
 import { debounce } from 'lodash';
-import { useEffect, useState } from 'react';
-
-import { completion } from '@components/llm/completion';
-import { Anthropic_Claude_Instant } from '@components/llm/providers/anthropic';
-import { OpenAI_GPT3_5, OpenAI_GPT3_5_16k } from '@components/llm/providers/openai';
+import { useEffect, useRef, useState } from 'react';
 
 import { useTrigger } from './useTrigger';
 
@@ -17,11 +14,34 @@ export const useSummary = (
   content?: string,
   language?: string,
 ) => {
+  const languageToUse = language?.startsWith('zh') ? 'zh-CN' : 'en';
+  const storageKey = `${tag}-${id}-${languageToUse}`;
+
   const [model, setModel] = useState('');
-  const [summary, setSummary] = useState('');
-  const [duration, setDuration] = useState(0);
+  const [summary, _setSummary] = useState('');
+  const setSummary = (content: string) => _setSummary(content.replace(/\n{2,}/g, '\n'));
   const [error, setError] = useState<Error | null>(null);
+
+  const t0 = useRef(0);
+  const [duration, setDuration] = useState(0);
   const [done, setDone] = useState(false);
+
+  const { messages, setMessages, reload } = useChat({
+    api: '/api/ai/summary',
+    onResponse: (response) => {
+      const llmModel = response.headers.get('llm-model') || '';
+      setModel(llmModel);
+    },
+    onFinish: ({ content }) => {
+      setSummary(content);
+
+      setDuration(new Date().getTime() - t0.current);
+
+      setDone(true);
+
+      localStorage.setItem(storageKey, JSON.stringify({ summary: content, model }));
+    },
+  });
 
   const reGenTrigger = useTrigger();
 
@@ -35,8 +55,7 @@ export const useSummary = (
 
   const createSummary = debounce(async (ignoreCache?: boolean) => {
     if (id && title && content) {
-      const languageToUse = language?.startsWith('zh') ? 'zh-CN' : 'en';
-      const storageKey = `${tag}-${id}-${languageToUse}`;
+      reset();
 
       // is there a cache?
       if (!ignoreCache) {
@@ -51,34 +70,10 @@ export const useSummary = (
       }
 
       // no cache available, create new summary
+      t0.current = new Date().getTime();
       const prompt = getPrompt(title, content, languageToUse);
-      try {
-        const t0 = new Date().getTime();
-        const { model, result } = await completion(
-          [OpenAI_GPT3_5, OpenAI_GPT3_5_16k, Anthropic_Claude_Instant],
-          prompt,
-          {
-            temperature: 0.5,
-            maxReplyTokens: 1024,
-            onStream: ({ acc }, model) => {
-              setSummary(acc.replace(/\n{2,}/g, '\n'));
-              setModel(model);
-            },
-          },
-        );
-
-        const t1 = new Date().getTime();
-        setDuration(t1 - t0);
-
-        localStorage.setItem(
-          storageKey,
-          JSON.stringify({ summary: result.replace(/\n{2,}/g, '\n'), model }),
-        );
-      } catch (error) {
-        setError(error as Error);
-      }
-
-      setDone(true);
+      setMessages([{ id: 'request', role: 'user', content: prompt }]);
+      reload();
     }
   }, 200);
 
@@ -95,6 +90,13 @@ export const useSummary = (
       createSummary(true);
     }
   }, [reGenTrigger.value]);
+
+  useEffect(() => {
+    const { role, content } = messages[1] || {};
+    if (role === 'assistant' && content) {
+      setSummary(content);
+    }
+  }, [messages]);
 
   return {
     model,
