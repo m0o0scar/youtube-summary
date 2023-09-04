@@ -42,7 +42,7 @@ export default async function handler(req: NextRequest) {
         model.modelName
       }, inputTokens (${inputTokens}) + maxReplyTokens (${maxReplyTokens}) ${
         canHandlePromot ? '<' : '>'
-      } maxTotalToken (${maxTotalToken})`,
+      } maxTotalToken (${maxTotalToken}k)`,
     );
 
     if (canHandlePromot) {
