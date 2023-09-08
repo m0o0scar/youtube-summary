@@ -28,7 +28,7 @@ export default async function handler(req: NextRequest) {
   });
 
   // calculate total token
-  const tokenCalculator = new ChatOpenAI();
+  const tokenCalculator = new ChatOpenAI({ openAIApiKey: process.env.OPENAI_API_TOKEN });
   const { totalCount: messagesTokens } =
     await tokenCalculator.getNumTokensFromMessages(chatMessages);
   const maxReplyTokens = 1024;
