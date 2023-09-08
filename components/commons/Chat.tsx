@@ -46,13 +46,13 @@ export const Chat: FC<ChatProps> = ({ placeholder, chatHook }) => {
       </div>
 
       {/* message list */}
-      <div className="flex flex-col gap-2 text-xs">
+      <div className="flex flex-col gap-2 text-sm">
         {messages.map(({ id, role, sender, content }) => (
           <div
             key={id}
             className={cls(
               'flex gap-1 rounded p-1 whitespace-pre-line',
-              role === 'user' ? 'bg-transparent' : 'bg-slate-100',
+              role === 'user' ? 'bg-transparent' : 'bg-slate-100 dark:bg-slate-700',
             )}
           >
             <div>{sender}</div>: <div>{content}</div>
