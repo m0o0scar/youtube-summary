@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import { countTokensOfText } from '@components/llm/providers/openai';
+import { countTokensOfText } from '@components/llm/countTokens';
 
 import { fetchYouTubeVideoComments } from './api';
 import { ContentStatus } from './type';
