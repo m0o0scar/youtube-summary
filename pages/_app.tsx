@@ -14,7 +14,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
       <SessionProvider session={session}>
         <div className="font-sans">
           <Component {...pageProps} />
-          <ToastContainer />
+          <ToastContainer autoClose={3000} />
         </div>
       </SessionProvider>
       <Analytics />
