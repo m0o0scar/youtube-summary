@@ -17,13 +17,17 @@ export const useSummary = (
   const languageToUse = language?.startsWith('zh') ? 'zh-CN' : 'en';
   const storageKey = `${tag}-${id}-${languageToUse}`;
 
+  // model and summary
   const [model, setModel] = useState('');
   const [summary, _setSummary] = useState('');
   const setSummary = (content: string) => _setSummary(content.replace(/\n{2,}/g, '\n'));
   const [error, setError] = useState<Error | null>(null);
 
+  // duration
   const t0 = useRef(0);
   const [duration, setDuration] = useState(0);
+
+  // summarization finished?
   const [done, setDone] = useState(false);
 
   const { messages, setMessages, reload } = useChat({

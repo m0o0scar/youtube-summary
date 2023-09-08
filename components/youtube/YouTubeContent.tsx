@@ -38,8 +38,8 @@ export const YouTubeContent: FC<YouTubeContentProps> = ({ source, language }) =>
   // video comments
   const { commentsStatus, comments, commentsTokens } = useYouTubeVideoComments(videoId);
 
+  // params for the sharing page
   const [shareParams, setShareParams] = useState<URLSearchParams | undefined>(undefined);
-
   useEffect(() => {
     const items: [string, string?][] = [
       ['u', source?.url],

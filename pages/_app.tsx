@@ -1,6 +1,8 @@
 import '../styles/globals.css';
+import 'react-toastify/dist/ReactToastify.css';
 
 import { SessionProvider } from 'next-auth/react';
+import { ToastContainer } from 'react-toastify';
 
 import { Analytics } from '@vercel/analytics/react';
 
@@ -12,6 +14,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
       <SessionProvider session={session}>
         <div className="font-sans">
           <Component {...pageProps} />
+          <ToastContainer />
         </div>
       </SessionProvider>
       <Analytics />
