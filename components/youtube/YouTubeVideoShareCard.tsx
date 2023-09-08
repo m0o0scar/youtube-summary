@@ -23,7 +23,7 @@ export const YouTubeVideoShareCard: FC<YouTubeVideoShareCardProps> = ({
   if (duration) subtitle.push(duration);
   if (model) subtitle.push(`by ${model}`);
 
-  const text = content?.replace(/- /g, '');
+  const text = content?.replace(/^-\s+/gm, '').replace(/\n+/gm, '');
 
   return (
     <div
