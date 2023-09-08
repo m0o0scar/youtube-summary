@@ -80,7 +80,9 @@ export const YouTubeContent: FC<YouTubeContentProps> = ({ source, language }) =>
           caption={caption}
           language={language}
           shareParams={shareParams}
-          onSummaryChange={setCaptionSummary}
+          onSummaryChange={(summary) => {
+            setCaptionSummary(summary);
+          }}
           onModelChange={setCaptionModel}
         />
       )}
