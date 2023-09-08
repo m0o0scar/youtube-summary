@@ -1,5 +1,5 @@
 import { isArray } from 'lodash';
-import { FC } from 'react';
+import { FC, ReactNode } from 'react';
 
 import { ContentStatus } from './type';
 
@@ -9,6 +9,7 @@ export interface YouTubeVideoContentProps {
   status?: ContentStatus;
   content?: string | string[];
   emptyPlaceholder?: string;
+  extraActions?: ReactNode;
 }
 
 export const YouTubeVideoContent: FC<YouTubeVideoContentProps> = ({
@@ -17,19 +18,25 @@ export const YouTubeVideoContent: FC<YouTubeVideoContentProps> = ({
   status,
   content,
   emptyPlaceholder = null,
+  extraActions,
 }) => {
   if (status === 'empty') return emptyPlaceholder;
 
   return (
     <div className="collapse bg-base-200 dark:bg-slate-700">
       <input type="checkbox" />
-      <div className="collapse-title">
+      <div className="collapse-title pr-4">
         <div className="flex gap-2 items-center">
+          {/* title & subtitle */}
           <h4>
             {title}{' '}
             {status === 'pending' && <span className="loading loading-spinner loading-xs" />}
           </h4>
           {subtitle && <span className="text-xs text-slate-400">/ {subtitle}</span>}
+
+          {/* extra actions */}
+          <div className="flex-1" />
+          {extraActions}
         </div>
       </div>
       <div className="collapse-content">

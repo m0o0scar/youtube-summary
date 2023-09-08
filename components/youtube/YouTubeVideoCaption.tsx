@@ -1,6 +1,8 @@
 import { FC } from 'react';
+import { toast } from 'react-toastify';
 
 import { formatNumberShort } from '@components/utils/number';
+import { ClipboardDocumentListIcon } from '@heroicons/react/24/solid';
 
 import { ContentStatus } from './type';
 import { YouTubeVideoContent } from './YouTubeVideoContent';
@@ -22,6 +24,13 @@ export const YouTubeVideoCaption: FC<YouTubeVideoCaptionProps> = ({
   if (language) subtitle.push(language);
   if (tokens) subtitle.push(`${formatNumberShort(tokens, 1024)} tokens`);
 
+  const copyCaption = async () => {
+    if (caption) {
+      await navigator.clipboard.writeText(caption);
+      toast.success('Caption copied');
+    }
+  };
+
   return (
     <YouTubeVideoContent
       title="Full Caption"
@@ -29,6 +38,13 @@ export const YouTubeVideoCaption: FC<YouTubeVideoCaptionProps> = ({
       subtitle={subtitle.join(', ')}
       content={caption}
       emptyPlaceholder="No caption"
+      extraActions={
+        status === 'loaded' && (
+          <button className="btn btn-circle btn-sm z-10" onClick={copyCaption}>
+            <ClipboardDocumentListIcon className="w-1/2 h-1/2" />
+          </button>
+        )
+      }
     />
   );
 };
