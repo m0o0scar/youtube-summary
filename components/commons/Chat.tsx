@@ -1,5 +1,5 @@
 import cls from 'classnames';
-import { FC, useState } from 'react';
+import { FC, useState, useRef } from 'react';
 
 import { useChatContent } from './useChatContent';
 
@@ -9,6 +9,8 @@ export interface ChatProps {
 }
 
 export const Chat: FC<ChatProps> = ({ placeholder, chatHook }) => {
+  const inputRef = useRef<HTMLInputElement | null>(null);
+
   const [draft, setDraft] = useState('');
 
   const messages =
@@ -27,6 +29,7 @@ export const Chat: FC<ChatProps> = ({ placeholder, chatHook }) => {
     if (e.key === 'Enter' && content) {
       chatHook?.sendMessage(content);
       setDraft('');
+      inputRef.current!.blur();
     }
   };
 
@@ -35,6 +38,7 @@ export const Chat: FC<ChatProps> = ({ placeholder, chatHook }) => {
       {/* message input */}
       <div className="flex gap-2">
         <input
+          ref={inputRef}
           type="text"
           placeholder={chatHook?.pending ? 'Thinking ...' : placeholder}
           disabled={chatHook?.pending}
