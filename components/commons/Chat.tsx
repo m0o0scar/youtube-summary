@@ -1,7 +1,7 @@
 import cls from 'classnames';
 import { FC, useRef, useState } from 'react';
 
-import { TrashIcon } from '@heroicons/react/24/solid';
+import { ClipboardDocumentListIcon, TrashIcon } from '@heroicons/react/24/solid';
 
 import { useChatContent } from './useChatContent';
 
@@ -40,9 +40,20 @@ export const Chat: FC<ChatProps> = ({ placeholder, chatHook }) => {
       <div className="flex gap-2 items-center">
         <h3>Chat</h3>
         <div className="flex-1" />
+
+        {/* copy button */}
         <button
           className="btn btn-circle btn-sm z-10"
-          disabled={chatHook?.pending}
+          disabled={chatHook?.pending || !messages.length}
+          onClick={chatHook?.copyMessages}
+        >
+          <ClipboardDocumentListIcon className="w-1/2 h-1/2" />
+        </button>
+
+        {/* clear button */}
+        <button
+          className="btn btn-circle btn-sm z-10"
+          disabled={chatHook?.pending || !messages.length}
           onClick={chatHook?.clear}
         >
           <TrashIcon className="w-1/2 h-1/2" />

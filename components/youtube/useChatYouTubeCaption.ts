@@ -1,12 +1,21 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
-import { useChatContent } from '@components/commons/useChatContent';
+import { useChatContent, UseChatContentOptions } from '@components/commons/useChatContent';
 
 export const useChatYouTubeCaption = (videoId?: string, title?: string, caption?: string) => {
   const [prompt, setPrompt] = useState('');
 
   const storageKey = videoId ? `youtube-chat-${videoId}` : '';
-  const chat = useChatContent(storageKey, prompt);
+
+  const options = useMemo(
+    () =>
+      ({
+        storageKey,
+        copyPrefix: `${title}\nhttps://www.youtube.com/watch?v=${videoId}`,
+      }) as UseChatContentOptions,
+    [storageKey, title, videoId],
+  );
+  const chat = useChatContent(prompt, options);
 
   useEffect(() => {
     if (title && caption) {
