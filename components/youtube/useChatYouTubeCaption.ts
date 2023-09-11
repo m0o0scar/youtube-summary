@@ -2,10 +2,11 @@ import { useEffect, useState } from 'react';
 
 import { useChatContent } from '@components/commons/useChatContent';
 
-export const useChatYouTubeCaption = (title?: string, caption?: string) => {
+export const useChatYouTubeCaption = (videoId?: string, title?: string, caption?: string) => {
   const [prompt, setPrompt] = useState('');
 
-  const chat = useChatContent(prompt);
+  const storageKey = videoId ? `youtube-chat-${videoId}` : '';
+  const chat = useChatContent(storageKey, prompt);
 
   useEffect(() => {
     if (title && caption) {

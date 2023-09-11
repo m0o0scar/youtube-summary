@@ -33,7 +33,7 @@ export const YouTubeVideoCaptionSummary: FC<YouTubeVideoCaptionSummaryProps> = (
     language,
   );
 
-  const chat = useChatYouTubeCaption(title, caption);
+  const chat = useChatYouTubeCaption(videoId, title, caption);
 
   const [shareUrl, setShareUrl] = useState<string>('');
 

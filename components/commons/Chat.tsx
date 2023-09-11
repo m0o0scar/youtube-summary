@@ -1,5 +1,7 @@
 import cls from 'classnames';
-import { FC, useState, useRef } from 'react';
+import { FC, useRef, useState } from 'react';
+
+import { TrashIcon } from '@heroicons/react/24/solid';
 
 import { useChatContent } from './useChatContent';
 
@@ -35,6 +37,17 @@ export const Chat: FC<ChatProps> = ({ placeholder, chatHook }) => {
 
   return (
     <div className="flex flex-col gap-2">
+      <div className="flex gap-2 items-center">
+        <h3>Chat</h3>
+        <div className="flex-1" />
+        <button
+          className="btn btn-circle btn-sm z-10"
+          disabled={chatHook?.pending}
+          onClick={chatHook?.clear}
+        >
+          <TrashIcon className="w-1/2 h-1/2" />
+        </button>
+      </div>
       {/* message input */}
       <div className="flex gap-2">
         <input
