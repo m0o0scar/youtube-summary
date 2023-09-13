@@ -15,7 +15,9 @@ export const getYouTubeVideoId = (url = '') => {
 
     // https://www.youtube.com/v/VIDEO_ID
     // https://www.youtube.com/embed/VIDEO_ID
-    if (pathname.startsWith('/v/') || pathname.startsWith('/embed/')) return pathname.split('/')[2];
+    // https://www.youtube.com/live/VIDEO_ID
+    const [_, type, videoId] = pathname.split('/');
+    if (['v', 'embed', 'live'].includes(type)) return videoId;
 
     return null;
   } catch (error) {
