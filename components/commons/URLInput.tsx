@@ -80,7 +80,7 @@ export const URLInput: FC<URLInputProps> = ({ language, disabled, onSupportedURL
         />
         <label className="label">
           <span className="label-text-alt">
-            I will summarize this URL in <b>{language === 'en' ? 'English' : 'Chinese'}</b>.
+            I will summarize this YouTube video in <b>{language === 'en' ? 'English' : 'Chinese'}</b>.
           </span>
         </label>
       </div>
