@@ -44,12 +44,10 @@ export default async function handler(req: NextRequest) {
 
   // choose a model that can handle the token count
   let model;
-  if (totalTokens < 4 * 1024) {
-    model = new ChatOpenAI({ modelName: 'gpt-3.5-turbo', ...options });
-  } else if (totalTokens < 16 * 1024) {
-    model = new ChatOpenAI({ modelName: 'gpt-3.5-turbo-16k', ...options });
+  if (totalTokens < 16 * 1024) {
+    model = new ChatOpenAI({ modelName: 'gpt-3.5-turbo-1106', ...options });
   } else {
-    model = new ChatAnthropic({ modelName: 'claude-instant-1', ...options });
+    model = new ChatOpenAI({ modelName: 'gpt-4-1106-preview', ...options });
   }
 
   const outputParser = new BytesOutputParser();
