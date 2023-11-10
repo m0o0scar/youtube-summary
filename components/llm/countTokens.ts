@@ -1,9 +1,9 @@
-import { ChatCompletionRequestMessage } from 'openai';
+import { OpenAI } from 'openai';
 import { get_encoding } from 'tiktoken';
 
 const encoder = get_encoding('cl100k_base');
 
-export function countTokens(messages: ChatCompletionRequestMessage[]) {
+export function countTokens(messages: OpenAI.Chat.ChatCompletionMessage[]) {
   /**
    * https://github.com/openai/openai-cookbook/blob/main/examples/How_to_count_tokens_with_tiktoken.ipynb
    *

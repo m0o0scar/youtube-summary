@@ -1,5 +1,4 @@
 import { Message, StreamingTextResponse } from 'ai';
-import { ChatAnthropic } from 'langchain/chat_models/anthropic';
 import { ChatOpenAI } from 'langchain/chat_models/openai';
 import { AIMessage, HumanMessage, SystemMessage } from 'langchain/schema';
 import { BytesOutputParser } from 'langchain/schema/output_parser';
