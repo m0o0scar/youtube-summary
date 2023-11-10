@@ -1,8 +1,12 @@
 import sanitizeHtml from 'sanitize-html';
 
 import {
-    YouTubeChannelListResponse, YouTubeCommentThread, YouTubeCommentThreadsRequestOptions,
-    YouTubeCommentThreadsResponse, YouTubeListCaptionsResponse, YouTubeVideoInfoResponse
+  YouTubeChannelListResponse,
+  YouTubeCommentThread,
+  YouTubeCommentThreadsRequestOptions,
+  YouTubeCommentThreadsResponse,
+  YouTubeListCaptionsResponse,
+  YouTubeVideoInfoResponse,
 } from './type';
 
 export const fetchYouTubeVideoInfo = async (videoId: string) => {
@@ -26,9 +30,9 @@ export const fetchYouTubeVideoCaptionLanguages = async (videoId: string) => {
   });
   const url = `/api/proxy/youtube/v3/captions?${params.toString()}`;
   const response = await fetch(url);
-  const captions = (await response.json()) as YouTubeListCaptionsResponse;
+  const { items = [] } = (await response.json()) as YouTubeListCaptionsResponse;
 
-  const languages = captions.items
+  const languages = items
     // sort English & Chinese caption to front
     .map((item) => {
       const lang = item.snippet.language;
