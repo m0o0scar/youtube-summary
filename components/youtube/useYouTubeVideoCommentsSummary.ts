@@ -20,11 +20,14 @@ Example Reply:
 - Overall, ...`;
 };
 
+const spams = /(amk69x)/i;
+
 export const useYouTubeVideoCommentsSummary = (
   videoId?: string,
   title?: string,
   commenets?: string[],
   language?: string,
 ) => {
-  return useSummary('youtube-comments', getPrompt, videoId, title, commenets?.join('\n'), language);
+  const filtered = commenets?.filter((c) => !c.match(spams));
+  return useSummary('youtube-comments', getPrompt, videoId, title, filtered?.join('\n'), language);
 };
