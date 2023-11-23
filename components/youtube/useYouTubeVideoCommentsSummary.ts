@@ -20,7 +20,7 @@ Example Reply:
 - Overall, ...`;
 };
 
-const spams = /(amk69x)/i;
+const spams = /(amk\d+x)/i;
 
 export const useYouTubeVideoCommentsSummary = (
   videoId?: string,
