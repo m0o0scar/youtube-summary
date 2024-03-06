@@ -23,7 +23,7 @@ export default async function handler(req: NextRequest) {
   };
 
   const models = [
-    { maxTotalToken: 16, model: new ChatOpenAI({ modelName: 'gpt-3.5-turbo', ...options }) },
+    // { maxTotalToken: 16, model: new ChatOpenAI({ modelName: 'gpt-3.5-turbo', ...options }) },
     { maxTotalToken: 128, model: new ChatOpenAI({ modelName: 'gpt-4-turbo-preview', ...options }) },
   ];
 
