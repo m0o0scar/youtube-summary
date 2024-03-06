@@ -10,7 +10,7 @@ This is the caption of the video, in <caption></caption> XML tag:
 ${caption}
 </caption>
 
-Your task is to extract the major key points, facts, and opinions from the caption, and reply in markdown bullet point format (try your best to keep it within 5~10 points). Reply in ${lang}..
+Your task is to extract the major key points, facts, and opinions from the caption, and reply in markdown bullet point format. Try your best to keep it within 5 bullet points. Reply in ${lang}..
 Your reply should be concise and easy to understand.
 You should reply without any redundant content like title or description.
 You should ignore irrelevant content from the caption, for example ads and reminder for subscribing to or spreading the channel, etc.`;

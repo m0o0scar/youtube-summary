@@ -10,7 +10,7 @@ export const runtime = 'edge';
 export default async function handler(req: NextRequest) {
   const { messages } = await req.json();
   const prompt = messages[0].content;
-  const temperature = 0.5;
+  const temperature = 0.1;
   const maxReplyTokens = 1024;
 
   const promptTemplate = PromptTemplate.fromTemplate('{prompt}');
@@ -23,8 +23,8 @@ export default async function handler(req: NextRequest) {
   };
 
   const models = [
-    { maxTotalToken: 16, model: new ChatOpenAI({ modelName: 'gpt-3.5-turbo-1106', ...options }) },
-    { maxTotalToken: 128, model: new ChatOpenAI({ modelName: 'gpt-4-1106-preview', ...options }) },
+    { maxTotalToken: 16, model: new ChatOpenAI({ modelName: 'gpt-3.5-turbo', ...options }) },
+    { maxTotalToken: 128, model: new ChatOpenAI({ modelName: 'gpt-4-turbo-preview', ...options }) },
   ];
 
   /**
