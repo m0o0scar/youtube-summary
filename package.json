@@ -10,7 +10,6 @@
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.5.10",
-    "@heroicons/react": "^2.0.18",
     "@tailwindcss/typography": "^0.5.9",
     "@vercel/analytics": "^1.0.2",
     "ai": "^2.2.10",
