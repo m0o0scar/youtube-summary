@@ -25,7 +25,7 @@ export default function Page() {
       <article className="prose max-w-full w-screen flex justify-center p-4">
         <div className="flex flex-col gap-6 w-full max-w-2xl mb-4">
           {/* title */}
-          <a href="/" className="no-underline">
+          <a href="/" className="no-underline self-start">
             <h1 className="hidden sm:block">YouTube Summary</h1>
             <h1 className="block sm:hidden">YT Summary</h1>
           </a>
