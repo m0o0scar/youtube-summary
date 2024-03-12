@@ -2,7 +2,6 @@ import { FC } from 'react';
 import { toast } from 'react-toastify';
 
 import { formatNumberShort } from '@components/utils/number';
-import { ClipboardDocumentListIcon } from '@heroicons/react/24/solid';
 
 import { ContentStatus } from './type';
 import { YouTubeVideoContent } from './YouTubeVideoContent';
