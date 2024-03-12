@@ -1,7 +1,6 @@
 import { FC, useEffect, useState } from 'react';
 
 import { Chat } from '@components/commons/Chat';
-import { ChatBubbleOvalLeftEllipsisIcon, ShareIcon } from '@heroicons/react/24/solid';
 
 import { useChatYouTubeCaption } from './useChatYouTubeCaption';
 import { useYouTubeVideoCaptionSummary } from './useYouTubeVideoCaptionSummary';
@@ -67,7 +66,7 @@ export const YouTubeVideoCaptionSummary: FC<YouTubeVideoCaptionSummaryProps> = (
         extraActions={
           <>
             <button className="btn btn-circle btn-sm" onClick={onShare}>
-              <ShareIcon className="w-1/2 h-1/2" />
+              📥
             </button>
           </>
         }

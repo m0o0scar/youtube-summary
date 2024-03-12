@@ -41,7 +41,7 @@ export const YouTubeVideoCaption: FC<YouTubeVideoCaptionProps> = ({
       extraActions={
         status === 'loaded' && (
           <button className="btn btn-circle btn-sm z-10" onClick={copyCaption}>
-            <ClipboardDocumentListIcon className="w-1/2 h-1/2" />
+            📋
           </button>
         )
       }

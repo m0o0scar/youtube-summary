@@ -1,8 +1,6 @@
 import cls from 'classnames';
 import { FC, useRef, useState } from 'react';
 
-import { ClipboardDocumentListIcon, TrashIcon } from '@heroicons/react/24/solid';
-
 import { useChatContent } from './useChatContent';
 
 export interface ChatProps {
@@ -47,7 +45,7 @@ export const Chat: FC<ChatProps> = ({ placeholder, chatHook }) => {
           disabled={chatHook?.pending || !messages.length}
           onClick={chatHook?.copyMessages}
         >
-          <ClipboardDocumentListIcon className="w-1/2 h-1/2" />
+          📋
         </button>
 
         {/* clear button */}
@@ -56,7 +54,7 @@ export const Chat: FC<ChatProps> = ({ placeholder, chatHook }) => {
           disabled={chatHook?.pending || !messages.length}
           onClick={chatHook?.clear}
         >
-          <TrashIcon className="w-1/2 h-1/2" />
+          🗑️
         </button>
       </div>
       {/* message input */}

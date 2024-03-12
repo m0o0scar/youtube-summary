@@ -5,7 +5,6 @@ import ReactMarkdown from 'react-markdown';
 import styled from 'styled-components';
 
 import { useSummary } from '@components/commons/useSummary';
-import { ArrowPathIcon } from '@heroicons/react/24/solid';
 
 dayjs.extend(dayjsDuration);
 
@@ -61,7 +60,7 @@ export const YouTubeVideoContentSummary: FC<YouTubeVideoContentSummaryProps> = (
           <div className="flex gap-2">
             {extraActions}
             <button className="btn btn-circle btn-sm" onClick={regen}>
-              <ArrowPathIcon className="w-1/2 h-1/2" />
+              🔄
             </button>
           </div>
         )}
