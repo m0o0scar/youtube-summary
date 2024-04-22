@@ -1,6 +1,7 @@
 import { Message, useChat } from 'ai/react';
 import { debounce } from 'lodash';
 import { useEffect, useRef, useState } from 'react';
+import { toast } from 'react-toastify';
 
 import { useTrigger } from './useTrigger';
 
@@ -81,6 +82,14 @@ export const useSummary = (
     }
   }, 200);
 
+  const copySummary = async () => {
+    if (id && title && summary) {
+      const text = `${title}\nhttps://www.youtube.com/watch?v=${id}\n\nSummary:\n${summary}`;
+      await navigator.clipboard.writeText(text);
+      toast.success('Summary copied');
+    }
+  };
+
   useEffect(() => {
     reset();
   }, [id]);
@@ -109,5 +118,6 @@ export const useSummary = (
     done,
     error,
     regen: reGenTrigger.trigger,
+    copySummary,
   };
 };
