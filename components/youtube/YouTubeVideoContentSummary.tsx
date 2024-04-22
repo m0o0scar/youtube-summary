@@ -1,29 +1,11 @@
 import dayjs from 'dayjs';
 import dayjsDuration from 'dayjs/plugin/duration';
 import { FC } from 'react';
-import ReactMarkdown from 'react-markdown';
-import styled from 'styled-components';
 
+import { Markdown } from '@components/commons/Markdown';
 import { useSummary } from '@components/commons/useSummary';
 
 dayjs.extend(dayjsDuration);
-
-const StyledReactMarkdown = styled(ReactMarkdown)`
-  display: flex;
-  flex-direction: column;
-  padding: 16px 0;
-  gap: 8px;
-
-  p,
-  ul,
-  ol {
-    margin: 0;
-
-    li {
-      margin: -8px;
-    }
-  }
-`;
 
 export interface YouTubeVideoContentSummaryProps extends ReturnType<typeof useSummary> {
   extraActions?: React.ReactNode;
@@ -72,7 +54,7 @@ export const YouTubeVideoContentSummary: FC<YouTubeVideoContentSummaryProps> = (
           {!summary && <span className="loading loading-spinner" />}
           {summary && (
             <div className="px-4 py-0 rounded-xl text-sm text-slate-800 bg-teal-200 dark:text-slate-100 dark:bg-teal-700 whitespace-pre-wrap">
-              <StyledReactMarkdown>{summary}</StyledReactMarkdown>
+              <Markdown>{summary}</Markdown>
             </div>
           )}
         </>

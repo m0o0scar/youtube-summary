@@ -23,6 +23,7 @@ export const useChatYouTubeCaption = (videoId?: string, title?: string, caption?
         [
           `You are a helpful AI assistant answering questions regarding a YouTube video.`,
           `Keep your reply concise and easy to understand.`,
+          `ALWAYS include relevant quotes from the caption in your reply, put them in separate paragraphs in markdown format.`,
           `The title of the video is "${title}".`,
           `The caption of the video is:\n\n${caption}`,
         ].join(' '),

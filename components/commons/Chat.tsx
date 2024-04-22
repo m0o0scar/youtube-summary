@@ -1,6 +1,7 @@
 import cls from 'classnames';
 import { FC, useRef, useState } from 'react';
 
+import { Markdown } from './Markdown';
 import { useChatContent } from './useChatContent';
 
 export interface ChatProps {
@@ -16,7 +17,6 @@ export const Chat: FC<ChatProps> = ({ placeholder, chatHook }) => {
   const messages =
     chatHook?.messages
       .filter(({ role }) => role !== 'system')
-      .reverse()
       .map(({ role, content, ...rest }) => ({
         sender: role === 'user' ? '🙂' : '🤖',
         role,
@@ -57,6 +57,25 @@ export const Chat: FC<ChatProps> = ({ placeholder, chatHook }) => {
           🗑️
         </button>
       </div>
+
+      {/* message list */}
+      <div className="flex flex-col gap-2 text-sm">
+        {messages.map(({ id, role, sender, content }) => (
+          <div
+            key={id}
+            className={cls(
+              'flex gap-1 rounded-lg p-1 whitespace-pre-line',
+              role === 'user' ? 'bg-transparent' : 'bg-slate-100 dark:bg-slate-700',
+            )}
+          >
+            <div>{sender}</div>:{' '}
+            <div className="pr-2">
+              <Markdown>{content}</Markdown>
+            </div>
+          </div>
+        ))}
+      </div>
+
       {/* message input */}
       <div className="flex gap-2">
         <input
@@ -69,21 +88,6 @@ export const Chat: FC<ChatProps> = ({ placeholder, chatHook }) => {
           onChange={(e) => setDraft(e.target.value)}
           onKeyDown={onKeyDown}
         />
-      </div>
-
-      {/* message list */}
-      <div className="flex flex-col gap-2 text-sm">
-        {messages.map(({ id, role, sender, content }) => (
-          <div
-            key={id}
-            className={cls(
-              'flex gap-1 rounded-lg p-1 whitespace-pre-line',
-              role === 'user' ? 'bg-transparent' : 'bg-slate-100 dark:bg-slate-700',
-            )}
-          >
-            <div>{sender}</div>: <div>{content}</div>
-          </div>
-        ))}
       </div>
     </div>
   );
