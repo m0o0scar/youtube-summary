@@ -26,28 +26,18 @@ export default async function handler(req: NextRequest) {
     }
   });
 
-  // calculate total token
-  const tokenCalculator = new ChatOpenAI({ openAIApiKey: process.env.OPENAI_API_TOKEN });
-  const { totalCount: messagesTokens } =
-    await tokenCalculator.getNumTokensFromMessages(chatMessages);
   const maxReplyTokens = 1024;
-  const totalTokens = messagesTokens + maxReplyTokens;
 
   // shared model options
   const options = {
     openAIApiKey: process.env.OPENAI_API_TOKEN,
     anthropicApiKey: process.env.ANTHROPIC_API_TOKEN,
     maxTokens: maxReplyTokens,
-    temperature: 0.3,
+    temperature: 0,
   };
 
   // choose a model that can handle the token count
-  let model;
-  if (totalTokens < 16 * 1024) {
-    model = new ChatOpenAI({ modelName: 'gpt-3.5-turbo-1106', ...options });
-  } else {
-    model = new ChatOpenAI({ modelName: 'gpt-4-1106-preview', ...options });
-  }
+  const model = new ChatOpenAI({ modelName: 'gpt-4-turbo', ...options });
 
   const outputParser = new BytesOutputParser();
   const chain = model!.pipe(outputParser);
