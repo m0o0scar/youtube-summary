@@ -8,14 +8,24 @@ const StyledReactMarkdown = styled(ReactMarkdown)`
   padding: 0;
   gap: 8px;
 
-  p,
-  ul,
-  ol {
+  p {
     margin: 0;
   }
 
-  ul > li {
+  ul,
+  ol {
+    margin: 0;
+    /* margin-bottom: -20px; */
+  }
+
+  ul > li,
+  ol > li {
     margin: -8px;
+
+    & > p {
+      margin-top: -20px;
+      margin-bottom: -10px;
+    }
   }
 
   blockquote {

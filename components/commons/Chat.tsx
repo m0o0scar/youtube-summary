@@ -64,7 +64,7 @@ export const Chat: FC<ChatProps> = ({ placeholder, chatHook }) => {
           <div
             key={id}
             className={cls(
-              'flex gap-1 rounded-lg p-1 whitespace-pre-line',
+              'flex gap-1 rounded-lg py-1 px-2 whitespace-pre-line',
               role === 'user' ? 'bg-transparent' : 'bg-slate-100 dark:bg-slate-700',
             )}
           >
