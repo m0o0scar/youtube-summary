@@ -9,12 +9,9 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@anthropic-ai/sdk": "^0.5.10",
-    "@tailwindcss/typography": "^0.5.9",
     "@vercel/analytics": "^1.0.2",
     "ai": "^2.2.10",
     "classnames": "^2.3.2",
-    "daisyui": "^3.2.1",
     "dayjs": "^1.11.9",
     "langchain": "^0.0.184",
     "lodash": "^4.17.21",
@@ -33,6 +30,7 @@
   },
   "devDependencies": {
     "@svgr/webpack": "^8.0.1",
+    "@tailwindcss/typography": "^0.5.9",
     "@trivago/prettier-plugin-sort-imports": "^4.2.0",
     "@types/lodash": "^4.14.195",
     "@types/node": "^20.4.2",
@@ -40,6 +38,7 @@
     "@types/react-dom": "^18.2.7",
     "@types/sanitize-html": "^2.9.0",
     "autoprefixer": "^10.4.14",
+    "daisyui": "^3.2.1",
     "eslint": "^8.44.0",
     "eslint-config-next": "^13.4.9",
     "postcss": "^8.4.26",

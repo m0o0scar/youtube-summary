@@ -31,7 +31,6 @@ export default async function handler(req: NextRequest) {
   // shared model options
   const options = {
     openAIApiKey: process.env.OPENAI_API_TOKEN,
-    anthropicApiKey: process.env.ANTHROPIC_API_TOKEN,
     maxTokens: maxReplyTokens,
     temperature: 0,
   };

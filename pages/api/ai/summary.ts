@@ -1,5 +1,4 @@
 import { StreamingTextResponse } from 'ai';
-import { ChatAnthropic } from 'langchain/chat_models/anthropic';
 import { ChatOpenAI } from 'langchain/chat_models/openai';
 import { PromptTemplate } from 'langchain/prompts';
 import { BytesOutputParser } from 'langchain/schema/output_parser';
@@ -17,7 +16,6 @@ export default async function handler(req: NextRequest) {
 
   const options = {
     openAIApiKey: process.env.OPENAI_API_TOKEN,
-    anthropicApiKey: process.env.ANTHROPIC_API_TOKEN,
     temperature,
     maxTokens: maxReplyTokens,
   };
