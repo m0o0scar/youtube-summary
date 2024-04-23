@@ -1,11 +1,9 @@
-# Next.js Template
+# YouTube Summary
 
-## Install
+A React webapp that enhances YouTube video consumption:
 
-```
-npx degit m0o0scar/nextjs-template#llm my-project
-cd my-project
+- Summarizes video captions into key points, providing a quick overview of the video content;
+- Summarizes video comments, giving users an understanding of the general sentiment towards the video;
+- Includes a chat feature for users to discuss the video content.
 
-yarn
-yarn dev
-```
+![](docs/screenshot.jpeg)
