@@ -5,12 +5,18 @@ export const getYouTubeVideoId = (url = '') => {
 
     // check if the url is a youtube video url
     const hostnameWithoutWWW = hostname.replace(/^www\./, '');
-    if (!['youtube.com', 'm.youtube.com', 'youtu.be'].includes(hostnameWithoutWWW)) return null;
+    if (
+      !['youtube.com', 'm.youtube.com', 'youtu.be', 'music.youtube.com'].includes(
+        hostnameWithoutWWW,
+      )
+    )
+      return null;
 
     // https://youtu.be/VIDEO_ID
     if (hostnameWithoutWWW === 'youtu.be') return pathname.split('/')[1];
 
     // https://www.youtube.com/watch?v=VIDEO_ID
+    // https://music.youtube.com/watch?v=bmOzRI5Job0&feature=shared
     if (pathname === '/watch') return searchParams.get('v');
 
     // https://www.youtube.com/v/VIDEO_ID
