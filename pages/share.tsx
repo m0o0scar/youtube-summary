@@ -23,18 +23,21 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     ['thumbnail', 'p'],
     ['title', 't'],
     ['content', 'c'],
-    ['model', 'm'],
     ['duration', 'd'],
   ];
   for (const [name, key] of items) {
     const param = url.searchParams.get(key) as string;
-    if (param) Object.assign(props, { [name]: decodeURIComponent(param) });
+    if (param) {
+      let value = decodeURIComponent(param);
+      if (name === 'content') value = value.replaceAll('_', ' ');
+      Object.assign(props, { [name]: value });
+    }
   }
 
   return { props };
 };
 
-export default function Page({ url, thumbnail, title, content, model, duration }: SharePageProps) {
+export default function Page({ url, thumbnail, title, content, duration }: SharePageProps) {
   return (
     <>
       <Header
@@ -57,7 +60,7 @@ export default function Page({ url, thumbnail, title, content, model, duration }
       />
 
       <div className="absolute w-screen h-screen flex items-center justify-center">
-        <YouTubeVideoShareCard {...{ url, thumbnail, title, content, model, duration }} />
+        <YouTubeVideoShareCard {...{ url, thumbnail, title, content, duration }} />
       </div>
     </>
   );

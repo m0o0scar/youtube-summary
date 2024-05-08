@@ -45,8 +45,9 @@ export const YouTubeContent: FC<YouTubeContentProps> = ({ source, language }) =>
       ['u', source?.url],
       ['p', thumbnail],
       ['t', title],
-      ['c', captionSummary],
-      ['m', captionModel],
+      // encodeURIComponent(' ') will get '%20', length = 1,
+      // let's replace all spaces with '_' to save some characters on url
+      ['c', captionSummary.replaceAll(' ', '_')],
       ['d', duration],
     ];
 

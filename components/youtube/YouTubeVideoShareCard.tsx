@@ -9,7 +9,6 @@ export interface YouTubeVideoShareCardProps {
   thumbnail?: string;
   title?: string;
   content?: string;
-  model?: string;
   duration?: string;
 }
 
@@ -18,12 +17,10 @@ export const YouTubeVideoShareCard: FC<YouTubeVideoShareCardProps> = ({
   thumbnail,
   title,
   content,
-  model,
   duration,
 }) => {
   const subtitle: string[] = [];
   if (duration) subtitle.push(duration);
-  if (model) subtitle.push(`by ${model}`);
 
   return (
     <div
@@ -76,7 +73,6 @@ export const YouTubeVideoShareCard: FC<YouTubeVideoShareCardProps> = ({
         )}
 
         {/* content */}
-        {/* {content && <p className="text-sm p-3 mb-4 overflow-y-auto">{content}</p>} */}
         <div className="prose px-4 py-0 mb-4 rounded-xl text-sm text-slate-800 dark:text-slate-100 whitespace-pre-wrap overflow-y-auto">
           {content && <Markdown>{content}</Markdown>}
         </div>
