@@ -4,6 +4,10 @@ const nextConfig = {
 
   swcMinify: true,
 
+  compiler: {
+    styledComponents: true,
+  },
+
   webpack(config) {
     // support WebAssembly
     config.experiments = {
