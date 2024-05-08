@@ -2,6 +2,8 @@ import cls from 'classnames';
 /* eslint-disable @next/next/no-img-element */
 import { FC } from 'react';
 
+import { Markdown } from '@components/commons/Markdown';
+
 export interface YouTubeVideoShareCardProps {
   url?: string;
   thumbnail?: string;
@@ -22,8 +24,6 @@ export const YouTubeVideoShareCard: FC<YouTubeVideoShareCardProps> = ({
   const subtitle: string[] = [];
   if (duration) subtitle.push(duration);
   if (model) subtitle.push(`by ${model}`);
-
-  const text = content?.replace(/^-\s+/gm, '').replace(/\n+/gm, '');
 
   return (
     <div
@@ -75,10 +75,11 @@ export const YouTubeVideoShareCard: FC<YouTubeVideoShareCardProps> = ({
           </>
         )}
 
-        {/* {(title || content) && <hr className="dark:border-slate-700" />} */}
-
         {/* content */}
-        {text && <p className="text-sm p-3 mb-4 overflow-y-auto">{text}</p>}
+        {/* {content && <p className="text-sm p-3 mb-4 overflow-y-auto">{content}</p>} */}
+        <div className="prose px-4 py-0 mb-4 rounded-xl text-sm text-slate-800 dark:text-slate-100 whitespace-pre-wrap overflow-y-auto">
+          {content && <Markdown>{content}</Markdown>}
+        </div>
       </div>
     </div>
   );

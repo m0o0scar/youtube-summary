@@ -1,4 +1,4 @@
-import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
+import { GetServerSideProps } from 'next';
 
 import { Header } from '@components/commons/Header';
 import { YouTubeVideoShareCard } from '@components/youtube/YouTubeVideoShareCard';
