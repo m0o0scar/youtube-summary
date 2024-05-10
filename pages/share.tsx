@@ -42,10 +42,7 @@ export default function Page({ url, thumbnail, title, content = '', duration }: 
     <>
       <ShareHeader title={title} summary={content} thumbnail={thumbnail} />
 
-      <div
-        className="absolute w-screen flex items-center justify-center overflow-hidden"
-        style={{ height: '-webkit-fill-available' }}
-      >
+      <div className="absolute w-screen h-screen flex items-center justify-center overflow-hidden">
         <YouTubeVideoShareCard {...{ url, thumbnail, title, content, duration }} />
       </div>
     </>

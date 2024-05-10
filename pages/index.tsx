@@ -22,10 +22,7 @@ export default function Page() {
       <Header title="YouTube Summary" />
 
       {/* page container */}
-      <article
-        className="prose absolute w-screen overflow-y-auto p-4"
-        style={{ height: '-webkit-fill-available' }}
-      >
+      <article className="prose absolute w-screen h-screen overflow-y-auto p-4">
         <div className="flex flex-col gap-6 w-full max-w-2xl mb-4">
           {/* title */}
           <a href="/" className="no-underline self-start">
