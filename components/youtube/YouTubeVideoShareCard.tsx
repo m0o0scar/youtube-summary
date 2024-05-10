@@ -1,5 +1,5 @@
-import cls from 'classnames';
 /* eslint-disable @next/next/no-img-element */
+import cls from 'classnames';
 import { FC } from 'react';
 
 import { Markdown } from '@components/commons/Markdown';

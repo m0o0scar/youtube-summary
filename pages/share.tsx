@@ -1,3 +1,5 @@
+import { fromMarkdown } from 'mdast-util-from-markdown';
+import { toString } from 'mdast-util-to-string';
 import { GetServerSideProps } from 'next';
 
 import { Header } from '@components/commons/Header';
@@ -37,23 +39,26 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   return { props };
 };
 
-export default function Page({ url, thumbnail, title, content, duration }: SharePageProps) {
+export default function Page({ url, thumbnail, title, content = '', duration }: SharePageProps) {
+  // remove markdown formats from description
+  const description = toString(fromMarkdown(content));
+
   return (
     <>
       <Header
         title={title || 'YouTube Summary'}
-        description={content}
+        description={description}
         extra={
           <>
             {/* Open Graph */}
             <meta property="og:title" content={title} />
-            <meta property="og:description" content={content} />
+            <meta property="og:description" content={description} />
             <meta property="og:image" content={thumbnail} />
 
             {/* Twitter */}
             <meta name="twitter:card" content="summary_large_image" />
             <meta name="twitter:title" content={title} />
-            <meta name="twitter:description" content={content} />
+            <meta name="twitter:description" content={description} />
             <meta name="twitter:image" content={thumbnail} />
           </>
         }
