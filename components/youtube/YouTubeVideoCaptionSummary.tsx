@@ -1,6 +1,7 @@
 import { FC, useEffect, useState } from 'react';
 
 import { Chat } from '@components/commons/Chat';
+import { ShareHeader } from '@components/share/ShareHeader';
 
 import { useChatYouTubeCaption } from './useChatYouTubeCaption';
 import { useYouTubeVideoCaptionSummary } from './useYouTubeVideoCaptionSummary';
@@ -9,6 +10,7 @@ import { YouTubeVideoContentSummary } from './YouTubeVideoContentSummary';
 export interface YouTubeVideoCaptionSummaryProps {
   videoId?: string;
   title?: string;
+  thumbnail?: string;
   caption?: string;
   language?: string;
   shareParams?: URLSearchParams;
@@ -19,6 +21,7 @@ export interface YouTubeVideoCaptionSummaryProps {
 export const YouTubeVideoCaptionSummary: FC<YouTubeVideoCaptionSummaryProps> = ({
   videoId,
   title,
+  thumbnail,
   caption,
   language,
   shareParams,
@@ -55,9 +58,20 @@ export const YouTubeVideoCaptionSummary: FC<YouTubeVideoCaptionSummaryProps> = (
     setShareUrl(`/share${params}`);
   }, [shareParams]);
 
+  useEffect(() => {
+    if (done && shareUrl) {
+      window.history.pushState(undefined, title!, shareUrl);
+    }
+  }, [done, title, shareUrl]);
+
   return (
     <>
+      {done && <ShareHeader title={title} summary={summary} thumbnail={thumbnail} />}
+
+      {/* chat */}
       {done && <Chat placeholder="Ask me anything about the caption" chatHook={chat} />}
+
+      {/* summary */}
       <YouTubeVideoContentSummary
         summary={summary}
         model={model}

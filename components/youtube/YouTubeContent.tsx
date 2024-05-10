@@ -78,6 +78,7 @@ export const YouTubeContent: FC<YouTubeContentProps> = ({ source, language }) =>
         <YouTubeVideoCaptionSummary
           videoId={videoId}
           title={title}
+          thumbnail={thumbnail}
           caption={caption}
           language={language}
           shareParams={shareParams}
