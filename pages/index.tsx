@@ -22,8 +22,8 @@ export default function Page() {
       <Header title="YouTube Summary" />
 
       {/* page container */}
-      <article className="prose absolute w-screen h-screen overflow-y-auto p-4">
-        <div className="flex flex-col gap-6 w-full max-w-2xl mb-4">
+      <article className="prose absolute max-w-full w-screen h-screen overflow-y-auto p-4">
+        <div className="flex flex-col gap-6 w-full max-w-2xl mb-4 m-auto">
           {/* title */}
           <a href="/" className="no-underline self-start">
             <h1 className="hidden sm:block">YouTube Summary</h1>
