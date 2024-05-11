@@ -32,7 +32,7 @@ export const YouTubeVideoShareCard: FC<YouTubeVideoShareCardProps> = ({
         'w-full sm:w-96',
 
         // height
-        'h-full sm:h-auto sm:max-h-[800px]',
+        'h-full sm:h-auto sm:max-h-[800px] overflow-y-auto z-0',
 
         // margin
         'm-0 sm:m-5',
@@ -63,17 +63,17 @@ export const YouTubeVideoShareCard: FC<YouTubeVideoShareCardProps> = ({
         {/* title */}
         {title && (
           <>
-            <a href={url}>
+            <a className="sticky top-0 backdrop-blur border-b" href={url}>
               <h3 className="card-title !p-3">{title}</h3>
             </a>
             {subtitle.length && (
-              <div className="px-3 text-xs text-slate-400 -mt-3">{subtitle.join(' / ')}</div>
+              <div className="px-3 text-xs text-slate-400">{subtitle.join(' / ')}</div>
             )}
           </>
         )}
 
         {/* content */}
-        <div className="prose px-4 py-0 mb-4 rounded-xl text-sm text-slate-800 dark:text-slate-100 whitespace-pre-wrap overflow-y-auto">
+        <div className="prose px-4 py-0 pb-4 rounded-xl text-sm text-slate-800 dark:text-slate-100 whitespace-pre-wrap">
           {content && <Markdown>{content}</Markdown>}
         </div>
       </div>
