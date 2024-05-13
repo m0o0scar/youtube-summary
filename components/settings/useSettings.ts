@@ -1,9 +1,20 @@
 import { useEffect, useState } from 'react';
 
+import { SupportedURL } from '@type';
+
 const lsKey = 'settings';
 
-export const useSettings = () => {
-  const [language, setLanguage] = useState('en');
+export type Language = 'en' | 'zh-CN';
+
+export const useSettings = (source?: SupportedURL) => {
+  const [language, setLanguage] = useState<Language>('en');
+
+  const changeLanguage = (lang: Language) => {
+    setLanguage(lang);
+
+    if (source?.url) location.href = `/?url=${encodeURIComponent(source.url)}`;
+    else location.href = '/';
+  };
 
   useEffect(() => {
     const values = JSON.parse(localStorage.getItem(lsKey) || '{}');
@@ -16,6 +27,6 @@ export const useSettings = () => {
 
   return {
     language,
-    setLanguage,
+    changeLanguage,
   };
 };

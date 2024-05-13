@@ -7,12 +7,11 @@ import { useSettings } from '@components/settings/useSettings';
 
 export interface NavMenuProps extends ReturnType<typeof useSettings> {}
 
-export const NavMenu: FC<NavMenuProps> = ({ language, setLanguage }) => {
+export const NavMenu: FC<NavMenuProps> = ({ language, changeLanguage }) => {
   const { status } = useSession();
 
   const onLanguageSwitchClick = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setLanguage(e.target.checked ? 'en' : 'zh-CN');
-    location.reload();
+    changeLanguage(e.target.checked ? 'en' : 'zh-CN');
   };
 
   return (

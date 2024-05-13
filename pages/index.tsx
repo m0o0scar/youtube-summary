@@ -13,9 +13,9 @@ import { SupportedURL } from '@type';
 export default function Page() {
   const { status } = useSession();
 
-  const settings = useSettings();
-
   const [source, setSource] = useState<SupportedURL | undefined>(undefined);
+
+  const settings = useSettings(source);
 
   return (
     <>
