@@ -63,7 +63,7 @@ export const YouTubeVideoShareCard: FC<YouTubeVideoShareCardProps> = ({
         {/* title */}
         {title && (
           <>
-            <a className="sticky top-0 backdrop-blur border-b" href={url}>
+            <a className="sticky top-0 backdrop-blur border-b dark:border-gray-700" href={url}>
               <h3 className="card-title !p-3">{title}</h3>
             </a>
             {subtitle.length && (

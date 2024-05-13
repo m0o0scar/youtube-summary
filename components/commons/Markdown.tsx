@@ -43,6 +43,14 @@ const StyledReactMarkdown = styled(ReactMarkdown)`
       }
     }
   }
+
+  /* dark mode */
+  @media (prefers-color-scheme: dark) {
+    strong {
+      color: #a7f4ee;
+      text-decoration: underline;
+    }
+  }
 `;
 
 export const Markdown = ({ children }: { children: string }) => (
