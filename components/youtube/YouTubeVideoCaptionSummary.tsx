@@ -59,7 +59,7 @@ export const YouTubeVideoCaptionSummary: FC<YouTubeVideoCaptionSummaryProps> = (
   }, [shareParams]);
 
   useEffect(() => {
-    if (done && shareUrl) {
+    if (done && shareUrl && process.env.NODE_ENV !== 'development') {
       window.history.pushState(undefined, title!, shareUrl);
     }
   }, [done, title, shareUrl]);
