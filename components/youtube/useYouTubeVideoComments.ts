@@ -1,19 +1,15 @@
 import { useEffect, useState } from 'react';
 
-import { countTokensOfText } from '@components/llm/countTokens';
-
 import { fetchYouTubeVideoComments } from './api';
 import { ContentStatus } from './type';
 
 export const useYouTubeVideoComments = (videoId?: string) => {
   const [status, setStatus] = useState<ContentStatus>('pending');
   const [comments, setComments] = useState<string[]>([]);
-  const [commentsTokens, setCommentsTokens] = useState(0);
 
   useEffect(() => {
     setStatus('pending');
     setComments([]);
-    setCommentsTokens(0);
 
     (async () => {
       if (videoId) {
@@ -24,7 +20,6 @@ export const useYouTubeVideoComments = (videoId?: string) => {
             return `${authorDisplayName}: ${textDisplay}`;
           });
           setComments(commentTexts);
-          setCommentsTokens(countTokensOfText(commentTexts.join('\n')));
           setStatus('loaded');
         } else {
           setStatus('empty');
@@ -36,6 +31,5 @@ export const useYouTubeVideoComments = (videoId?: string) => {
   return {
     commentsStatus: status,
     comments,
-    commentsTokens,
   };
 };

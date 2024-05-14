@@ -28,15 +28,12 @@ export const YouTubeContent: FC<YouTubeContentProps> = ({ source, language }) =>
   const { channel } = useYouTubeChannel(channelId);
 
   // video caption
-  const { captionStatus, caption, captionLanguage, captionTokens } = useYouTubeVideoCaption(
-    videoId,
-    language,
-  );
+  const { captionStatus, caption, captionLanguage } = useYouTubeVideoCaption(videoId, language);
   const [captionSummary, setCaptionSummary] = useState('');
   const [captionModel, setCaptionModel] = useState('');
 
   // video comments
-  const { commentsStatus, comments, commentsTokens } = useYouTubeVideoComments(videoId);
+  const { commentsStatus, comments } = useYouTubeVideoComments(videoId);
 
   // params for the sharing page
   const [shareParams, setShareParams] = useState<URLSearchParams | undefined>(undefined);
@@ -88,12 +85,7 @@ export const YouTubeContent: FC<YouTubeContentProps> = ({ source, language }) =>
           onModelChange={setCaptionModel}
         />
       )}
-      <YouTubeVideoCaption
-        status={captionStatus}
-        caption={caption}
-        language={captionLanguage}
-        tokens={captionTokens}
-      />
+      <YouTubeVideoCaption status={captionStatus} caption={caption} language={captionLanguage} />
 
       {/* comments */}
       <h2 className="!mt-4">Comments</h2>
@@ -105,7 +97,7 @@ export const YouTubeContent: FC<YouTubeContentProps> = ({ source, language }) =>
           language={language}
         />
       )}
-      <YouTubeVideoComments status={commentsStatus} comments={comments} tokens={commentsTokens} />
+      <YouTubeVideoComments status={commentsStatus} comments={comments} />
     </>
   );
 };

@@ -1,7 +1,5 @@
 import { useEffect, useState } from 'react';
 
-import { countTokensOfText } from '@components/llm/countTokens';
-
 import { fetchYouTubeVideoCaption, fetchYouTubeVideoCaptionLanguages } from './api';
 import { ContentStatus } from './type';
 
@@ -9,13 +7,11 @@ export const useYouTubeVideoCaption = (videoId?: string, preferredLanguage: stri
   const [status, setStatus] = useState<ContentStatus>('pending');
   const [caption, setCaption] = useState('');
   const [captionLanguage, setCaptionLanguage] = useState('');
-  const [captionTokens, setCaptionTokens] = useState(0);
 
   useEffect(() => {
     setStatus('pending');
     setCaption('');
     setCaptionLanguage('');
-    setCaptionTokens(0);
 
     (async () => {
       if (videoId) {
@@ -30,7 +26,6 @@ export const useYouTubeVideoCaption = (videoId?: string, preferredLanguage: stri
           if (text) {
             setCaption(text);
             setCaptionLanguage(language);
-            setCaptionTokens(countTokensOfText(text));
             setStatus('loaded');
             return;
           }
@@ -44,6 +39,5 @@ export const useYouTubeVideoCaption = (videoId?: string, preferredLanguage: stri
     captionStatus: status,
     caption,
     captionLanguage,
-    captionTokens,
   };
 };

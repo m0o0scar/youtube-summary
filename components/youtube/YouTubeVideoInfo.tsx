@@ -2,7 +2,7 @@
 import { FC } from 'react';
 
 import { Header } from '@components/commons/Header';
-import { formatNumberShort, percentage } from '@components/utils/number';
+import { formatNumberShort } from '@components/utils/number';
 
 import { YouTubeChannel } from './type';
 import { useYouTubeVideoInfo } from './useYouTubeVideoInfo';

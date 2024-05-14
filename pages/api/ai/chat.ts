@@ -36,7 +36,7 @@ export default async function handler(req: NextRequest) {
   };
 
   // choose a model that can handle the token count
-  const model = new ChatOpenAI({ modelName: 'gpt-4-turbo', ...options });
+  const model = new ChatOpenAI({ modelName: 'gpt-4o', ...options });
 
   const outputParser = new BytesOutputParser();
   const chain = model!.pipe(outputParser);
