@@ -26,21 +26,15 @@ export default async function handler(req: NextRequest) {
     }
   });
 
-  const maxReplyTokens = 1024;
-
-  // shared model options
-  const options = {
+  const model = new ChatOpenAI({
+    modelName: 'gpt-4o',
     openAIApiKey: process.env.OPENAI_API_TOKEN,
-    maxTokens: maxReplyTokens,
+    maxTokens: 1024,
     temperature: 0,
-  };
-
-  // choose a model that can handle the token count
-  const model = new ChatOpenAI({ modelName: 'gpt-4o', ...options });
+  });
 
   const outputParser = new BytesOutputParser();
   const chain = model!.pipe(outputParser);
   const stream = await chain.stream(chatMessages);
-
   return new StreamingTextResponse(stream);
 }

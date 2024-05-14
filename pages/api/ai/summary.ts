@@ -9,20 +9,15 @@ export const runtime = 'edge';
 export default async function handler(req: NextRequest) {
   const { messages } = await req.json();
   const prompt = messages[0].content;
-  const temperature = 0;
-  const maxReplyTokens = 1024;
 
   const promptTemplate = PromptTemplate.fromTemplate('{prompt}');
 
-  const options = {
+  const model = new ChatOpenAI({
+    modelName: 'gpt-4o',
     openAIApiKey: process.env.OPENAI_API_TOKEN,
-    temperature,
-    maxTokens: maxReplyTokens,
-  };
-
-  const models = [
-    { maxTotalToken: 128, model: new ChatOpenAI({ modelName: 'gpt-4o', ...options }) },
-  ];
+    temperature: 0,
+    maxTokens: 1024,
+  });
 
   /**
    * Chat models stream message chunks rather than bytes, so this
@@ -30,28 +25,12 @@ export default async function handler(req: NextRequest) {
    */
   const outputParser = new BytesOutputParser();
 
-  for (const { maxTotalToken, model } of models) {
-    const inputTokens = await model.getNumTokens(prompt);
-    const canHandlePromot = inputTokens + maxReplyTokens < maxTotalToken * 1024;
-    console.log(
-      `model=${
-        model.modelName
-      }, inputTokens (${inputTokens}) + maxReplyTokens (${maxReplyTokens}) ${
-        canHandlePromot ? '<' : '>'
-      } maxTotalToken (${maxTotalToken}k)`,
-    );
-
-    if (canHandlePromot) {
-      const chain = promptTemplate.pipe(model).pipe(outputParser);
-      const stream = await chain.stream({ prompt });
-      return new StreamingTextResponse(stream, {
-        headers: {
-          'llm-provider': model.modelName.startsWith('gpt-') ? 'openai' : 'anthropic',
-          'llm-model': model.modelName,
-        },
-      });
-    }
-  }
-
-  return new Response('Prompt too long', { status: 400, statusText: 'Prompt too long' });
+  const chain = promptTemplate.pipe(model).pipe(outputParser);
+  const stream = await chain.stream({ prompt });
+  return new StreamingTextResponse(stream, {
+    headers: {
+      'llm-provider': 'openai',
+      'llm-model': 'gpt-4o',
+    },
+  });
 }
