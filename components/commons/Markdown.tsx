@@ -5,30 +5,24 @@ import styled from 'styled-components';
 const StyledReactMarkdown = styled(ReactMarkdown)`
   display: flex;
   flex-direction: column;
-  padding: 0;
+  padding: 0 0 8px 0;
   gap: 8px;
 
-  p {
-    margin: 0;
+  & > *,
+  ul,
+  ol {
+    margin: 0 !important;
   }
 
   pre {
     white-space: pre-wrap;
-    margin: 0 0 5px 0 !important;
   }
 
   hr {
     margin: 5px 0;
   }
 
-  ul,
-  ol {
-    margin: 0;
-    /* margin-bottom: -20px; */
-  }
-
-  ul > li,
-  ol > li {
+  li {
     margin: -8px;
 
     & > p {
@@ -37,12 +31,15 @@ const StyledReactMarkdown = styled(ReactMarkdown)`
     }
   }
 
+  code {
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+
   blockquote {
-    /* remove extra space on top & bottom */
-    margin: 0;
     line-height: 0;
 
     & > p {
+      margin: 0 !important;
       line-height: 1.5rem;
 
       /* no need to display the extra "" */
@@ -58,6 +55,11 @@ const StyledReactMarkdown = styled(ReactMarkdown)`
     strong {
       color: #a7f4ee;
       text-decoration: underline;
+    }
+
+    code {
+      color: white;
+      background-color: rgba(255, 255, 255, 0.1);
     }
   }
 `;
