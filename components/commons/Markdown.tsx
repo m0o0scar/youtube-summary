@@ -12,6 +12,10 @@ const StyledReactMarkdown = styled(ReactMarkdown)`
     margin: 0;
   }
 
+  pre {
+    white-space: pre-wrap;
+  }
+
   hr {
     margin: 5px 0;
   }
