@@ -31,7 +31,7 @@ export const YouTubeVideoInfoCard: FC<YouTubeVideoInfoProps> = ({
 
   return (
     <>
-      {title && <Header title={`Summary of "${title}"`} />}
+      {title && <Header title={title} />}
       <div className="flex flex-col sm:flex-row gap-4 items-start">
         {/* thumbnail */}
         {!thumbnail && <div className="w-full sm:w-60 rounded-lg aspect-video bg-slate-200" />}

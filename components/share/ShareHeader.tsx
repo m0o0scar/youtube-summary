@@ -14,7 +14,7 @@ export const ShareHeader: FC<ShareHeaderProps> = ({ title, summary, thumbnail })
   // remove markdown formats from description
   const description = summary ? toString(fromMarkdown(summary)) : '';
 
-  const shareTitle = title ? `Summary of "${title}"` : 'YouTube Summary';
+  const shareTitle = title || 'YouTube Summary';
 
   return (
     <Header
