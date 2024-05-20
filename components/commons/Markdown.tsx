@@ -10,7 +10,8 @@ const StyledReactMarkdown = styled(ReactMarkdown)`
 
   & > *,
   ul,
-  ol {
+  ol,
+  blockquote {
     margin: 0 !important;
   }
 
