@@ -33,11 +33,22 @@ export const Chat: FC<ChatProps> = ({ placeholder, chatHook }) => {
     }
   };
 
+  const onSummarizeAsRecipe = () => {
+    chatHook?.sendMessage(
+      `Please summarize this video as recipe, listing ingredients and instructions in concise bullet points.`,
+    );
+  };
+
   return (
     <div className="flex flex-col gap-2">
       <div className="flex gap-2 items-center">
         <h3>Chat</h3>
         <div className="flex-1" />
+
+        {/* summarize as recipe button */}
+        <button className="btn btn-circle btn-sm z-10" onClick={onSummarizeAsRecipe}>
+          🍱
+        </button>
 
         {/* copy button */}
         <button
