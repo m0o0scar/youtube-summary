@@ -16,7 +16,6 @@ export const URLInput: FC<URLInputProps> = ({ language, disabled, onSupportedURL
 
   // url from search params
   const searchParams = useSearchParams();
-  const urlFromSearchParams = searchParams.get('url') as string;
 
   // check if a given url is supported & valid
   const checkIfUrlIsSupportedAndValid = (url?: string) => {
@@ -45,9 +44,9 @@ export const URLInput: FC<URLInputProps> = ({ language, disabled, onSupportedURL
   };
 
   const onGoButtonClick = (newValue?: string) => {
-    if (!value && !newValue) return;
+    const url = newValue || value;
+    if (!url) return;
 
-    const url = (value || newValue)!;
     const youtubeId = getYouTubeVideoId(url);
     if (youtubeId) {
       onSupportedURLFound?.({ type: 'youtube', id: youtubeId, url });
@@ -56,11 +55,12 @@ export const URLInput: FC<URLInputProps> = ({ language, disabled, onSupportedURL
   };
 
   useEffect(() => {
+    const urlFromSearchParams = searchParams.get('url') as string;
     if (checkIfUrlIsSupportedAndValid(urlFromSearchParams)) {
       setValue(urlFromSearchParams);
       value === '' && onGoButtonClick(urlFromSearchParams);
     }
-  }, [urlFromSearchParams]);
+  }, []);
 
   return (
     <div className="flex gap-2 items-end">
