@@ -3,65 +3,23 @@ import remarkGfm from 'remark-gfm';
 import styled from 'styled-components';
 
 const StyledReactMarkdown = styled(ReactMarkdown)`
-  display: flex;
-  flex-direction: column;
-  padding: 0 0 8px 0;
-  gap: 8px;
+  all: initial;
+  color: rgba(31, 41, 55, 0.8);
+  font-size: 14px;
+  font-family: ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+    'Segoe UI Symbol', 'Noto Color Emoji';
 
-  & > *,
-  ul,
-  ol,
-  blockquote {
-    margin: 0 !important;
+  * {
+    margin-top: 1em;
+    margin-bottom: 1em;
   }
 
-  pre {
-    white-space: pre-wrap;
+  & > *:first-child {
+    margin-top: 0;
   }
 
-  hr {
-    margin: 5px 0;
-  }
-
-  li {
-    margin: -8px;
-
-    & > p {
-      margin-top: -20px;
-      margin-bottom: -10px;
-    }
-  }
-
-  code {
-    background-color: rgba(0, 0, 0, 0.1);
-  }
-
-  blockquote {
-    line-height: 0;
-
-    & > p {
-      margin: 0 !important;
-      line-height: 1.5rem;
-
-      /* no need to display the extra "" */
-      &::before,
-      &::after {
-        display: none;
-      }
-    }
-  }
-
-  /* dark mode */
-  @media (prefers-color-scheme: dark) {
-    strong {
-      color: #a7f4ee;
-      text-decoration: underline;
-    }
-
-    code {
-      color: white;
-      background-color: rgba(255, 255, 255, 0.1);
-    }
+  & > *:last-child {
+    margin-bottom: 0;
   }
 `;
 
