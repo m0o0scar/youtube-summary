@@ -39,16 +39,17 @@ export const Chat: FC<ChatProps> = ({ placeholder, chatHook }) => {
     );
   };
 
+  const onSummarizeAsShoppingList = () => {
+    chatHook?.sendMessage(
+      `Please summarize this video as shopping list, listing items in concise bullet points.`,
+    );
+  };
+
   return (
     <div className="flex flex-col gap-2">
       <div className="flex gap-2 items-center">
         <h3>Chat</h3>
         <div className="flex-1" />
-
-        {/* summarize as recipe button */}
-        <button className="btn btn-circle btn-sm z-10" onClick={onSummarizeAsRecipe}>
-          🍱
-        </button>
 
         {/* copy button */}
         <button
@@ -94,11 +95,21 @@ export const Chat: FC<ChatProps> = ({ placeholder, chatHook }) => {
           type="text"
           placeholder={chatHook?.pending ? 'Thinking ...' : placeholder}
           disabled={chatHook?.pending}
-          className="input input-bordered flex-1"
+          className="input input-sm input-bordered flex-1"
           value={draft}
           onChange={(e) => setDraft(e.target.value)}
           onKeyDown={onKeyDown}
         />
+
+        {/* summarize as shopping list button */}
+        <button className="btn btn-circle btn-sm z-10" onClick={onSummarizeAsShoppingList}>
+          🛒
+        </button>
+
+        {/* summarize as recipe button */}
+        <button className="btn btn-circle btn-sm z-10" onClick={onSummarizeAsRecipe}>
+          🍱
+        </button>
       </div>
     </div>
   );
