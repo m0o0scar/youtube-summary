@@ -22,6 +22,10 @@ export const YouTubeVideoShareCard: FC<YouTubeVideoShareCardProps> = ({
   const subtitle: string[] = [];
   if (duration) subtitle.push(duration);
 
+  const onChatBtnClicked = () => {
+    if (url) location.href = `/?url=${encodeURIComponent(url)}`;
+  };
+
   return (
     <div
       className={cls(
@@ -73,8 +77,16 @@ export const YouTubeVideoShareCard: FC<YouTubeVideoShareCardProps> = ({
         )}
 
         {/* content */}
-        <div className="prose px-4 py-0 pb-4 rounded-xl text-sm text-slate-800 dark:text-slate-100 whitespace-pre-wrap">
+        <div className="prose px-4 py-0 rounded-xl text-sm text-slate-800 dark:text-slate-100 whitespace-pre-wrap">
           {content && <Markdown>{content}</Markdown>}
+        </div>
+
+        <div className="flex flex-row gap-2 p-4 pt-0 justify-end">
+          {url && (
+            <button className="btn btn-sm btn-square" onClick={onChatBtnClicked}>
+              💬
+            </button>
+          )}
         </div>
       </div>
     </div>
