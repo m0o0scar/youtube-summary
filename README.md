@@ -1,10 +1,10 @@
-# YouTube Summary
+# Chat over YouTube videos
 
 ![](docs/screenshot.jpeg)
 
 ## Overview
 
-YouTube Summary is a web application that allows users to generate summaries of YouTube videos. The application leverages YouTube's API to fetch video details, captions, and comments, and uses OpenAI's GPT-4 model to generate concise summaries. Users can also interact with the application through a chat interface to ask questions about the video content.
+This is a web application that allows users to generate summaries of YouTube videos. The application leverages YouTube's API to fetch video details, captions, and comments, and uses OpenAI's GPT-4 model to generate concise summaries. Users can also interact with the application through a chat interface to ask questions about the video content.
 
 ## Main Features
 
