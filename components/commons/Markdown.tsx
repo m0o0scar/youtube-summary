@@ -21,6 +21,10 @@ const StyledReactMarkdown = styled(ReactMarkdown)`
   & > *:last-child {
     margin-bottom: 0;
   }
+
+  @media (prefers-color-scheme: dark) {
+    color: rgba(255, 255, 255, 0.8);
+  }
 `;
 
 export const Markdown = ({ children }: { children: string }) => (

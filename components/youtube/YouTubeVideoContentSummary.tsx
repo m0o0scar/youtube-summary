@@ -53,7 +53,7 @@ export const YouTubeVideoContentSummary: FC<YouTubeVideoContentSummaryProps> = (
         <>
           {!summary && <span className="loading loading-spinner" />}
           {summary && (
-            <div className="px-4 py-0 rounded-xl text-sm text-slate-800 bg-teal-200 dark:text-slate-100 dark:bg-teal-700 whitespace-pre-wrap">
+            <div className="px-4 py-0 rounded-xl bg-teal-200 dark:bg-slate-700 text-sm whitespace-pre-wrap">
               <Markdown>{summary}</Markdown>
             </div>
           )}
