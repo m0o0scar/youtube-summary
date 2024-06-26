@@ -25,9 +25,9 @@ const spams = /(amk\d+x)/i;
 export const useYouTubeVideoCommentsSummary = (
   videoId?: string,
   title?: string,
-  commenets?: string[],
+  comments?: string[],
   language?: string,
 ) => {
-  const filtered = commenets?.filter((c) => !c.match(spams));
+  const filtered = comments?.filter((c) => !c.match(spams));
   return useSummary('youtube-comments', getPrompt, videoId, title, filtered?.join('\n'), language);
 };
